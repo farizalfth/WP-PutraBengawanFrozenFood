@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, X, MessageCircle } from 'lucide-react'
+import { LogIn, Menu, MessageCircle, X } from 'lucide-react'
 import Logo from '../shared/Logo'
 import { waLink } from '../../utils/constants'
 import { cn } from '../../lib/utils'
@@ -76,11 +76,18 @@ export function Navbar() {
             )}
             target="_blank"
             rel="noreferrer"
-            className="hidden items-center gap-2 rounded-xl bg-navy-800 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-navy-900 hover:shadow-md sm:inline-flex"
+            className="hidden items-center gap-2 rounded-xl border border-navy-100 px-3.5 py-2.5 text-sm font-semibold text-navy-800 transition-colors hover:bg-navy-50 sm:inline-flex"
           >
-            <MessageCircle className="h-4 w-4" />
-            Hubungi Kami
+            <MessageCircle className="h-4 w-4 text-[#25D366]" />
+            WhatsApp
           </a>
+          <Link
+            to="/admin/login"
+            className="inline-flex items-center gap-2 rounded-xl bg-navy-800 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-navy-900 hover:shadow-md"
+          >
+            <LogIn className="h-4 w-4" />
+            Admin
+          </Link>
           <button
             type="button"
             onClick={() => setOpen(!open)}
@@ -119,11 +126,18 @@ export function Navbar() {
               )}
               target="_blank"
               rel="noreferrer"
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl border border-navy-100 px-4 py-3 text-sm font-semibold text-navy-800"
+            >
+              <MessageCircle className="h-4 w-4 text-[#25D366]" />
+              Chat WhatsApp
+            </a>
+            <Link
+              to="/admin/login"
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-navy-800 px-4 py-3 text-sm font-semibold text-white"
             >
-              <MessageCircle className="h-4 w-4" />
-              Hubungi Kami
-            </a>
+              <LogIn className="h-4 w-4" />
+              Masuk Admin
+            </Link>
           </nav>
         </div>
       )}

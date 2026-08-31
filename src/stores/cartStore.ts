@@ -1,4 +1,5 @@
 import { create, type StateCreator } from 'zustand'
+import { persist } from 'zustand/middleware'
 import type { CartItem, Product } from '../types'
 
 interface CartState {
@@ -110,4 +111,9 @@ const cartStore: StateCreator<CartState> = (set, get) => ({
   getItemCount: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
 })
 
-export const useCartStore = create(cartStore)
+export const useCartStore = create<CartState>()(
+  persist(cartStore, {
+    name: 'pbf-pos-cart',
+    version: 1,
+  }),
+)

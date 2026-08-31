@@ -171,20 +171,20 @@ export function AdminUsersPage() {
               <tbody>
                 {sorted.map((p) => (
                   <tr key={p.id} className="transition-colors hover:bg-navy-50/40">
-                    <Td className="font-semibold text-navy-900">
+                    <Td className="font-semibold text-black">
                       <div className="flex items-center gap-2.5">
                         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-800 text-xs font-bold text-white">
                           {(p.name || '?').charAt(0).toUpperCase()}
                         </span>
                         {p.name}
                         {p.id === me?.id && (
-                          <span className="text-xs font-medium text-navy-400">
+                          <span className="text-xs font-medium text-neutral-500">
                             (Anda)
                           </span>
                         )}
                       </div>
                     </Td>
-                    <Td className="text-navy-500">{p.email || '-'}</Td>
+                    <Td className="text-neutral-600">{p.email || '-'}</Td>
                     <Td>
                       <Select
                         value={p.role}
@@ -198,7 +198,7 @@ export function AdminUsersPage() {
                         <option value="cashier">Kasir</option>
                       </Select>
                     </Td>
-                    <Td className="text-xs text-navy-500">{formatDate(p.created_at)}</Td>
+                    <Td className="text-xs text-neutral-600">{formatDate(p.created_at)}</Td>
                     <Td className="text-right">
                       <button
                         type="button"
@@ -255,8 +255,8 @@ export function AdminUsersPage() {
               <option value="admin">Admin</option>
             </Select>
           </Field>
-          <div className="flex items-start gap-2 rounded-xl bg-navy-50 px-3.5 py-3 text-xs text-navy-500">
-            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-navy-600" />
+          <div className="flex items-start gap-2 rounded-xl bg-navy-50 px-3.5 py-3 text-xs text-neutral-600">
+            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-black" />
             Role &amp; izin diverifikasi melalui database (RLS) di sisi Supabase.
           </div>
         </div>

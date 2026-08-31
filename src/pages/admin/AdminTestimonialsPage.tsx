@@ -183,7 +183,7 @@ export function AdminTestimonialsPage() {
         <AdminCard>
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-navy-100 p-4">
             <SearchInput value={query} onChange={setQuery} placeholder="Cari nama / komentar..." />
-            <p className="text-xs font-semibold text-navy-400">
+            <p className="text-xs font-semibold text-neutral-500">
               {filtered.length} testimoni
             </p>
           </div>
@@ -218,13 +218,13 @@ export function AdminTestimonialsPage() {
                           />
                         </div>
                         <div>
-                          <p className="font-semibold text-navy-900">{t.name}</p>
-                          <p className="text-xs text-navy-400">{t.job || '-'}</p>
+                          <p className="font-semibold text-black">{t.name}</p>
+                          <p className="text-xs text-neutral-500">{t.job || '-'}</p>
                         </div>
                       </div>
                     </Td>
                     <Td className="max-w-[280px]">
-                      <p className="line-clamp-2 text-navy-600">{t.message}</p>
+                      <p className="line-clamp-2 text-black">{t.message}</p>
                     </Td>
                     <Td>
                       <StarRating rating={t.rating} />
@@ -239,7 +239,7 @@ export function AdminTestimonialsPage() {
                         <button
                           type="button"
                           onClick={() => openEdit(t)}
-                          className="rounded-lg p-2 text-navy-600 transition-colors hover:bg-navy-100"
+                          className="rounded-lg p-2 text-black transition-colors hover:bg-navy-100"
                           aria-label={`Edit ${t.name}`}
                         >
                           <Pencil className="h-4 w-4" />
@@ -326,7 +326,7 @@ export function AdminTestimonialsPage() {
               onChange={(e) => setForm({ ...form, is_active: e.target.checked })}
               className="h-4 w-4 rounded accent-navy-800"
             />
-            <span className="text-sm font-semibold text-navy-800">
+            <span className="text-sm font-semibold text-black">
               Tampilkan di website publik
             </span>
           </label>

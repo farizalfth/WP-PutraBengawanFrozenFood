@@ -61,7 +61,7 @@ export function AdminLoginPage() {
 
   if (session?.user) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-navy-50 text-navy-500">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-navy-50 text-neutral-600">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-navy-200 border-t-navy-800" />
         <p className="text-sm font-medium">Memeriksa profil...</p>
       </div>
@@ -78,14 +78,14 @@ export function AdminLoginPage() {
 
         <div className="rounded-3xl border border-white/15 bg-white/95 p-8 shadow-2xl backdrop-blur">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-50 text-navy-700">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-50 text-black">
               <ShieldCheck className="h-6 w-6" />
             </div>
             <div>
-              <h1 className="font-display text-xl font-extrabold text-navy-900">
+              <h1 className="font-display text-xl font-extrabold text-black">
                 Masuk Dashboard
               </h1>
-              <p className="text-xs text-navy-500">
+              <p className="text-xs text-neutral-600">
                 Khusus admin &amp; kasir
               </p>
             </div>
@@ -93,7 +93,7 @@ export function AdminLoginPage() {
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div className="space-y-1.5">
-              <label className="block text-sm font-semibold text-navy-800">
+              <label className="block text-sm font-semibold text-black">
                 Email
               </label>
               <Input
@@ -107,7 +107,7 @@ export function AdminLoginPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-sm font-semibold text-navy-800">
+              <label className="block text-sm font-semibold text-black">
                 Kata Sandi
               </label>
               <div className="relative">
@@ -123,7 +123,7 @@ export function AdminLoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-400 transition-colors hover:text-navy-700"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 transition-colors hover:text-black"
                   aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
                 >
                   {showPassword ? (

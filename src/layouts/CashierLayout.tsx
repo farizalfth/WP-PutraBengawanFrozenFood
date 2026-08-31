@@ -22,7 +22,7 @@ export function CashierLayout() {
       <header className="sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-navy-100 bg-white px-4 py-2.5 shadow-sm">
         <div className="flex items-center gap-3">
           <Logo variant="dark" size="sm" />
-          <span className="hidden rounded-full bg-navy-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-navy-500 sm:inline-flex">
+          <span className="hidden rounded-full bg-navy-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-neutral-600 sm:inline-flex">
             <SnowflakeIcon className="mr-1 h-3 w-3" /> Point of Sale
           </span>
         </div>
@@ -36,7 +36,7 @@ export function CashierLayout() {
                 'flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold transition-colors',
                 isActive
                   ? 'bg-navy-800 text-white'
-                  : 'text-navy-600 hover:bg-navy-50',
+                  : 'text-black hover:bg-navy-50',
               )
             }
           >
@@ -50,7 +50,7 @@ export function CashierLayout() {
                 'flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold transition-colors',
                 isActive
                   ? 'bg-navy-800 text-white'
-                  : 'text-navy-600 hover:bg-navy-50',
+                  : 'text-black hover:bg-navy-50',
               )
             }
           >
@@ -61,8 +61,8 @@ export function CashierLayout() {
 
         <div className="flex items-center gap-2">
           <div className="hidden text-right md:block">
-            <p className="text-xs font-bold text-navy-900">{profile?.name || '-'}</p>
-            <p className="text-[10px] capitalize text-navy-400">{profile?.role ?? '-'}</p>
+            <p className="text-xs font-bold text-black">{profile?.name || '-'}</p>
+            <p className="text-[10px] capitalize text-neutral-500">{profile?.role ?? '-'}</p>
           </div>
           <button
             type="button"

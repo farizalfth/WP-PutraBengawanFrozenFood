@@ -29,7 +29,7 @@ export function ConfirmDialog({
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-50 text-red-500">
           <TriangleAlert className="h-7 w-7" />
         </div>
-        <p className="text-sm text-navy-600">
+        <p className="text-sm text-black">
           {description ?? 'Tindakan ini tidak dapat dibatalkan.'}
         </p>
         <div className="flex w-full gap-2">

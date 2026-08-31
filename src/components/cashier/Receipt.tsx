@@ -15,21 +15,21 @@ export function Receipt({ transaction, items }: ReceiptProps) {
   return (
     <div id="receipt-print" className="receipt-sheet bg-white p-4">
       <div className="text-center">
-        <p className="font-display text-sm font-extrabold tracking-wide text-navy-900">
+        <p className="font-display text-sm font-extrabold tracking-wide text-black">
           PUTRA BENGAWAN
         </p>
-        <p className="text-xs font-semibold tracking-[0.2em] text-navy-500">
+        <p className="text-xs font-semibold tracking-[0.2em] text-neutral-600">
           FROZEN FOOD STORE
         </p>
-        <p className="mt-1 text-[10px] leading-snug text-navy-400">
+        <p className="mt-1 text-[10px] leading-snug text-neutral-500">
           {STORE_SETTINGS.address.split(',').slice(0, 3).join(',')}
         </p>
-        <p className="text-[10px] text-navy-400">{STORE_SETTINGS.phone}</p>
+        <p className="text-[10px] text-neutral-500">{STORE_SETTINGS.phone}</p>
       </div>
 
       <div className="my-2 border-t border-dashed border-navy-300" />
 
-      <div className="space-y-0.5 text-[11px] text-navy-700">
+      <div className="space-y-0.5 text-[11px] text-black">
         <div className="flex justify-between">
           <span>No. Invoice</span>
           <span className="font-mono font-semibold">{transaction.invoice_number}</span>
@@ -46,14 +46,14 @@ export function Receipt({ transaction, items }: ReceiptProps) {
 
       <div className="my-2 border-t border-dashed border-navy-300" />
 
-      <div className="space-y-1.5 text-[11px] text-navy-700">
+      <div className="space-y-1.5 text-[11px] text-black">
         {items.map((item) => (
           <div key={item.id}>
-            <p className="font-medium text-navy-900 max-w-[260px]">
+            <p className="font-medium text-black max-w-[260px]">
               {item.products?.name ?? '-'}
             </p>
             <div className="flex justify-between">
-              <span className="text-navy-500">
+              <span className="text-neutral-600">
                 {formatNumber(item.quantity)} x {formatRupiah(item.price)}
               </span>
               <span className="font-semibold">{formatRupiah(item.subtotal)}</span>
@@ -65,15 +65,15 @@ export function Receipt({ transaction, items }: ReceiptProps) {
       <div className="my-2 border-t border-dashed border-navy-300" />
 
       <div className="space-y-0.5 text-[11px]">
-        <div className="flex justify-between font-semibold text-navy-900">
+        <div className="flex justify-between font-semibold text-black">
           <span>TOTAL</span>
           <span>{formatRupiah(transaction.total_amount)}</span>
         </div>
-        <div className="flex justify-between text-navy-700">
+        <div className="flex justify-between text-black">
           <span>BAYAR</span>
           <span>{formatRupiah(transaction.payment_amount)}</span>
         </div>
-        <div className="flex justify-between font-semibold text-navy-900">
+        <div className="flex justify-between font-semibold text-black">
           <span>KEMBALI</span>
           <span>{formatRupiah(transaction.change_amount)}</span>
         </div>
@@ -81,7 +81,7 @@ export function Receipt({ transaction, items }: ReceiptProps) {
 
       <div className="my-2 border-t border-dashed border-navy-300" />
 
-      <p className="text-center text-[10px] text-navy-400">
+      <p className="text-center text-[10px] text-neutral-500">
         Terima Kasih Sudah Berbelanja
         <br />
         Barang yang sudah dibeli tidak dapat ditukar

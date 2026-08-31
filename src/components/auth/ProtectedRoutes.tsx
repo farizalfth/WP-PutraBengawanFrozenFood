@@ -23,7 +23,7 @@ function RoleGuard({
 
   if (!initialized) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-3 text-navy-500">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-3 text-neutral-600">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-navy-200 border-t-navy-800" />
         <p className="text-sm font-medium">Memuat sesi...</p>
       </div>
@@ -38,10 +38,10 @@ function RoleGuard({
     return (
       <div className="flex min-h-screen items-center justify-center bg-navy-50 p-6 text-center">
         <div>
-          <h2 className="font-display text-2xl font-bold text-navy-900">
+          <h2 className="font-display text-2xl font-bold text-black">
             Akses Ditolak
           </h2>
-          <p className="mt-2 text-sm text-navy-500">
+          <p className="mt-2 text-sm text-neutral-600">
             Anda tidak memiliki izin untuk mengakses halaman ini.
           </p>
         </div>

@@ -4,16 +4,19 @@ import {
   Filter,
   ReceiptText,
   RefreshCw,
+  Trash2,
   X,
 } from 'lucide-react'
 import type { Transaction, TransactionItem } from '../../types'
 import {
+  deleteTransaction,
   getTransactionItems,
   listTransactions,
 } from '../../services/transactions'
 import { formatDateTime, formatInvoiceDate, formatRupiah } from '../../utils/format'
 import { Button } from '../../components/ui/Button'
 import { Modal } from '../../components/ui/Modal'
+import ConfirmDialog from '../../components/ui/ConfirmDialog'
 import { Spinner, StateMessage } from '../../components/ui/StateMessage'
 import {
   AdminPageHeader,
@@ -23,6 +26,8 @@ import {
   Td,
 } from '../../components/admin/AdminShared'
 import { Field, Input } from '../../components/ui/FormControls'
+import { useAuthStore } from '../../stores/authStore'
+import { useToast } from '../../stores/toastStore'
 
 export function AdminTransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
@@ -38,6 +43,12 @@ export function AdminTransactionsPage() {
   const [detailTx, setDetailTx] = useState<Transaction | null>(null)
   const [detailItems, setDetailItems] = useState<TransactionItem[]>([])
   const [detailLoading, setDetailLoading] = useState(false)
+
+  const [deleteTx, setDeleteTx] = useState<Transaction | null>(null)
+  const [deleting, setDeleting] = useState(false)
+
+  const profile = useAuthStore((s) => s.profile)
+  const toast = useToast()
 
   const fetchData = async () => {
     setLoading(true)
@@ -69,6 +80,20 @@ export function AdminTransactionsPage() {
   }
 
   const totalAll = transactions.reduce((s, t) => s + t.total_amount, 0)
+
+  const handleDelete = async () => {
+    if (!deleteTx) return
+    setDeleting(true)
+    const res = await deleteTransaction(deleteTx.id)
+    setDeleting(false)
+    if (res.error) {
+      toast.error(res.error)
+      return
+    }
+    toast.success(`Transaksi ${deleteTx.invoice_number} dihapus. Stok dikembalikan.`)
+    setDeleteTx(null)
+    fetchData()
+  }
 
   return (
     <div>
@@ -134,10 +159,10 @@ export function AdminTransactionsPage() {
         {!loading && !error && (
           <>
             <div className="flex items-center justify-between border-b border-navy-50 px-4 py-3">
-              <p className="text-xs font-semibold text-navy-400">
+              <p className="text-xs font-semibold text-neutral-500">
                 {transactions.length} transaksi
               </p>
-              <p className="text-sm font-bold text-navy-900">
+              <p className="text-sm font-bold text-black">
                 Total: {formatRupiah(totalAll)}
               </p>
             </div>
@@ -158,28 +183,37 @@ export function AdminTransactionsPage() {
                     <Th>Total</Th>
                     <Th>Bayar</Th>
                     <Th>Kembali</Th>
-                    <Th className="text-right">Detail</Th>
+                    <Th className="text-right">Aksi</Th>
                   </tr>
                 </thead>
                 <tbody>
                   {transactions.map((t) => (
                     <tr key={t.id} className="transition-colors hover:bg-navy-50/40">
                       <Td className="font-mono text-xs font-bold">{t.invoice_number}</Td>
-                      <Td className="text-xs text-navy-500">{formatDateTime(t.created_at)}</Td>
-                      <Td className="font-semibold text-navy-800">
+                      <Td className="text-xs text-neutral-600">{formatDateTime(t.created_at)}</Td>
+                      <Td className="font-semibold text-black">
                         {t.profiles?.name ?? '-'}
                       </Td>
-                      <Td className="font-bold text-navy-900">{formatRupiah(t.total_amount)}</Td>
-                      <Td className="text-navy-600">{formatRupiah(t.payment_amount)}</Td>
-                      <Td className="text-navy-600">{formatRupiah(t.change_amount)}</Td>
+                      <Td className="font-bold text-black">{formatRupiah(t.total_amount)}</Td>
+                      <Td className="text-black">{formatRupiah(t.payment_amount)}</Td>
+                      <Td className="text-black">{formatRupiah(t.change_amount)}</Td>
                       <Td className="text-right">
                         <button
                           type="button"
                           onClick={() => openDetail(t)}
-                          className="inline-flex items-center gap-1 rounded-lg bg-navy-50 px-3 py-1.5 text-xs font-semibold text-navy-700 transition-colors hover:bg-navy-100"
+                          className="inline-flex items-center gap-1 rounded-lg bg-navy-50 px-3 py-1.5 text-xs font-semibold text-black transition-colors hover:bg-navy-100"
                         >
                           <Eye className="h-3.5 w-3.5" /> Detail
                         </button>
+                        {profile?.role === 'admin' && (
+                          <button
+                            type="button"
+                            onClick={() => setDeleteTx(t)}
+                            className="ml-1.5 inline-flex items-center gap-1 rounded-lg bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600 transition-colors hover:bg-red-100"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" /> Hapus
+                          </button>
+                        )}
                       </Td>
                     </tr>
                   ))}
@@ -203,36 +237,36 @@ export function AdminTransactionsPage() {
           <div className="space-y-4">
             <div className="flex flex-wrap gap-4 text-sm">
               <div>
-                <span className="text-navy-400">Kasir: </span>
-                <span className="font-semibold text-navy-900">
+                <span className="text-neutral-500">Kasir: </span>
+                <span className="font-semibold text-black">
                   {detailTx?.profiles?.name ?? '-'}
                 </span>
               </div>
               <div>
-                <span className="text-navy-400">Total: </span>
-                <span className="font-bold text-navy-900">
+                <span className="text-neutral-500">Total: </span>
+                <span className="font-bold text-black">
                   {formatRupiah(detailTx?.total_amount ?? 0)}
                 </span>
               </div>
               <div>
-                <span className="text-navy-400">Bayar: </span>
-                <span className="font-semibold text-navy-900">
+                <span className="text-neutral-500">Bayar: </span>
+                <span className="font-semibold text-black">
                   {formatRupiah(detailTx?.payment_amount ?? 0)}
                 </span>
               </div>
               <div>
-                <span className="text-navy-400">Kembalian: </span>
-                <span className="font-semibold text-navy-900">
+                <span className="text-neutral-500">Kembalian: </span>
+                <span className="font-semibold text-black">
                   {formatRupiah(detailTx?.change_amount ?? 0)}
                 </span>
               </div>
             </div>
 
-            <h3 className="border-t border-navy-100 pt-3 text-sm font-bold text-navy-900">
+            <h3 className="border-t border-navy-100 pt-3 text-sm font-bold text-black">
               Item Pembelian
             </h3>
             {detailItems.length === 0 ? (
-              <p className="rounded-xl bg-navy-50 py-3 text-center text-sm text-navy-400">
+              <p className="rounded-xl bg-navy-50 py-3 text-center text-sm text-neutral-500">
                 Tidak ada data item.
               </p>
             ) : (
@@ -249,7 +283,7 @@ export function AdminTransactionsPage() {
                 <tbody>
                   {detailItems.map((item) => (
                     <tr key={item.id}>
-                      <Td className="font-semibold text-navy-900">
+                      <Td className="font-semibold text-black">
                         {item.products?.name ?? '-'}
                       </Td>
                       <Td className="font-mono text-xs">
@@ -257,7 +291,7 @@ export function AdminTransactionsPage() {
                       </Td>
                       <Td>{formatRupiah(item.price)}</Td>
                       <Td>{item.quantity}</Td>
-                      <Td className="text-right font-bold text-navy-900">
+                      <Td className="text-right font-bold text-black">
                         {formatRupiah(item.subtotal)}
                       </Td>
                     </tr>
@@ -268,6 +302,15 @@ export function AdminTransactionsPage() {
           </div>
         )}
       </Modal>
+    <ConfirmDialog
+        open={Boolean(deleteTx)}
+        title="Hapus Transaksi?"
+        description={`Transaksi ${deleteTx?.invoice_number ?? ''} akan dihapus dan stok produk dikembalikan otomatis.`}
+        confirmText="Hapus"
+        loading={deleting}
+        onConfirm={handleDelete}
+        onCancel={() => setDeleteTx(null)}
+      />
     </div>
   )
 }

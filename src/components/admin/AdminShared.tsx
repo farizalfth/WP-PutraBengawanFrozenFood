@@ -12,11 +12,11 @@ export function AdminPageHeader({
   return (
     <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
       <div>
-        <h1 className="font-display text-2xl font-extrabold text-navy-900">
+        <h1 className="font-display text-2xl font-extrabold text-black">
           {title}
         </h1>
         {description && (
-          <p className="mt-0.5 text-sm text-navy-500">{description}</p>
+          <p className="mt-0.5 text-sm text-neutral-600">{description}</p>
         )}
       </div>
       {action}
@@ -59,7 +59,7 @@ export function Th({
 }) {
   return (
     <th
-      className={`border-b border-navy-100 bg-navy-50/60 px-4 py-3 text-xs font-bold uppercase tracking-wider text-navy-500 ${className}`}
+      className={`border-b border-navy-100 bg-navy-50/60 px-4 py-3 text-xs font-bold uppercase tracking-wider text-neutral-600 ${className}`}
     >
       {children}
     </th>
@@ -73,7 +73,7 @@ export function Td({
   children?: ReactNode
   className?: string
 }) {
-  return <td className={`border-b border-navy-50 px-4 py-3 text-navy-700 ${className}`}>{children}</td>
+  return <td className={`border-b border-navy-50 px-4 py-3 text-black ${className}`}>{children}</td>
 }
 
 export function SearchInput({
@@ -91,7 +91,7 @@ export function SearchInput({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-56 max-w-full rounded-xl border border-navy-200 bg-white px-3.5 py-2 text-sm text-navy-900 outline-none placeholder:text-navy-300 focus:border-navy-500 focus:ring-2 focus:ring-navy-100"
+      className="w-56 max-w-full rounded-xl border border-navy-200 bg-white px-3.5 py-2 text-sm text-black outline-none placeholder:text-neutral-400 focus:border-navy-500 focus:ring-2 focus:ring-navy-100"
     />
   )
 }

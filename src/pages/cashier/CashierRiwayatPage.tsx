@@ -50,10 +50,10 @@ export function CashierRiwayatPage() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl font-extrabold text-navy-900">
+      <h1 className="font-display text-2xl font-extrabold text-black">
         Riwayat Transaksi
       </h1>
-      <p className="mt-0.5 text-sm text-navy-500">
+      <p className="mt-0.5 text-sm text-neutral-600">
         Daftar transaksi yang Anda lakukan.
       </p>
 
@@ -95,14 +95,14 @@ export function CashierRiwayatPage() {
                   {transactions.map((t) => (
                     <tr key={t.id} className="transition-colors hover:bg-navy-50/40">
                       <Td className="font-mono text-xs font-bold">{t.invoice_number}</Td>
-                      <Td className="text-xs text-navy-500">{formatDateTime(t.created_at)}</Td>
-                      <Td className="font-bold text-navy-900">{formatRupiah(t.total_amount)}</Td>
-                      <Td className="text-navy-600">{formatRupiah(t.payment_amount)}</Td>
+                      <Td className="text-xs text-neutral-600">{formatDateTime(t.created_at)}</Td>
+                      <Td className="font-bold text-black">{formatRupiah(t.total_amount)}</Td>
+                      <Td className="text-black">{formatRupiah(t.payment_amount)}</Td>
                       <Td className="text-right">
                         <button
                           type="button"
                           onClick={() => openDetail(t)}
-                          className="inline-flex items-center gap-1 rounded-lg bg-navy-50 px-3 py-1.5 text-xs font-semibold text-navy-700 transition-colors hover:bg-navy-100"
+                          className="inline-flex items-center gap-1 rounded-lg bg-navy-50 px-3 py-1.5 text-xs font-semibold text-black transition-colors hover:bg-navy-100"
                         >
                           <Eye className="h-3.5 w-3.5" /> Lihat
                         </button>

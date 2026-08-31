@@ -216,7 +216,7 @@ export function AdminProductsPage() {
               onChange={setQuery}
               placeholder="Cari nama, barcode, kategori..."
             />
-            <p className="text-xs font-semibold text-navy-400">
+            <p className="text-xs font-semibold text-neutral-500">
               {filtered.length} produk
             </p>
           </div>
@@ -252,7 +252,7 @@ export function AdminProductsPage() {
                             className="h-full w-full object-cover"
                           />
                         </div>
-                        <span className="line-clamp-1 max-w-[200px] font-semibold text-navy-900">
+                        <span className="line-clamp-1 max-w-[200px] font-semibold text-black">
                           {p.name}
                         </span>
                       </div>
@@ -279,7 +279,7 @@ export function AdminProductsPage() {
                           <Snowflake className="h-3 w-3" /> Best
                         </Badge>
                       ) : (
-                        <span className="text-navy-300">-</span>
+                        <span className="text-neutral-400">-</span>
                       )}
                     </Td>
                     <Td className="text-right">
@@ -287,7 +287,7 @@ export function AdminProductsPage() {
                         <button
                           type="button"
                           onClick={() => openEdit(p)}
-                          className="rounded-lg p-2 text-navy-600 transition-colors hover:bg-navy-100"
+                          className="rounded-lg p-2 text-black transition-colors hover:bg-navy-100"
                           aria-label={`Edit ${p.name}`}
                         >
                           <Pencil className="h-4 w-4" />
@@ -391,7 +391,7 @@ export function AdminProductsPage() {
               }
               className="h-4 w-4 rounded accent-navy-800"
             />
-            <span className="text-sm font-semibold text-navy-800">
+            <span className="text-sm font-semibold text-black">
               Tandai sebagai Best Seller
             </span>
           </label>

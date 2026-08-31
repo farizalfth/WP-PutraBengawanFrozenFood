@@ -114,6 +114,21 @@ export async function getTransactionItems(
   }
 }
 
+export async function deleteTransaction(
+  transactionId: string,
+): Promise<{ error: string | null }> {
+  try {
+    const client = getSupabaseClient()
+    const { error } = await client.rpc('delete_transaction', {
+      p_transaction_id: transactionId,
+    })
+    if (error) return { error: error.message }
+    return { error: null }
+  } catch (e) {
+    return { error: (e as Error).message }
+  }
+}
+
 export interface DashboardStats {
   totalProducts: number
   totalCategories: number

@@ -50,18 +50,18 @@ export function Modal({
           <div className="flex items-start justify-between border-b border-navy-100 px-5 py-4">
             <div>
               {title && (
-                <h3 className="font-display text-lg font-bold text-navy-900">
+                <h3 className="font-display text-lg font-bold text-black">
                   {title}
                 </h3>
               )}
               {subtitle && (
-                <p className="mt-0.5 text-sm text-navy-500">{subtitle}</p>
+                <p className="mt-0.5 text-sm text-neutral-600">{subtitle}</p>
               )}
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg p-1 text-navy-400 transition-colors hover:bg-navy-50 hover:text-navy-800"
+              className="rounded-lg p-1 text-neutral-500 transition-colors hover:bg-navy-50 hover:text-black"
               aria-label="Tutup"
             >
               <X className="h-5 w-5" />

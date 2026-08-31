@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { BrowserMultiFormatReader, type IScannerControls } from '@zxing/browser'
+import { BarcodeFormat, DecodeHintType } from '@zxing/library'
 import { Camera, CameraOff, ScanLine, X } from 'lucide-react'
 import { useToast } from '../../stores/toastStore'
 import { Button } from '../ui/Button'
@@ -25,7 +26,19 @@ export function CameraScanner({ open, onClose, onDetected }: CameraScannerProps)
     if (!open) return
 
     let cancelled = false
+    let settled = false
     const reader = new BrowserMultiFormatReader()
+    reader.hints.set(DecodeHintType.TRY_HARDER, true)
+    reader.hints.set(DecodeHintType.POSSIBLE_FORMATS, [
+      BarcodeFormat.EAN_13,
+      BarcodeFormat.EAN_8,
+      BarcodeFormat.CODE_128,
+      BarcodeFormat.CODE_39,
+      BarcodeFormat.CODE_93,
+      BarcodeFormat.ITF,
+      BarcodeFormat.UPC_A,
+      BarcodeFormat.UPC_E,
+    ])
 
     const start = async () => {
       setStarting(true)
@@ -40,27 +53,27 @@ export function CameraScanner({ open, onClose, onDetected }: CameraScannerProps)
           return
         }
 
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream
-          videoRef.current.setAttribute('playsinline', 'true')
-          await videoRef.current.play().catch(() => undefined)
+        const video = videoRef.current
+        if (!video) {
+          stream.getTracks().forEach((t) => t.stop())
+          return
         }
+
+        video.srcObject = stream
+        video.setAttribute('playsinline', 'true')
+        await video.play().catch(() => undefined)
 
         flashTrackRef.current = stream.getVideoTracks()[0] ?? null
 
-        const controls = await reader.decodeFromConstraints(
-          { video: { facingMode: 'environment' } },
-          videoRef.current ?? undefined,
-          (result) => {
-            if (result) {
-              const text = result.getText()
-              if (/^[0-9]{6,20}$/.test(text)) {
-                stop()
-                onDetectedRef.current(text)
-              }
-            }
-          },
-        )
+        const controls = await reader.decodeFromVideoElement(video, (result) => {
+          if (settled || !result) return
+          const text = result.getText()
+          if (/^[0-9]{6,20}$/.test(text)) {
+            settled = true
+            stop()
+            onDetectedRef.current(text)
+          }
+        })
         controlsRef.current = controls
       } catch (e) {
         setError(
@@ -139,14 +152,14 @@ export function CameraScanner({ open, onClose, onDetected }: CameraScannerProps)
     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-navy-950/80 p-4 backdrop-blur-sm">
       <div className="w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-2xl">
         <div className="flex items-center justify-between border-b border-navy-100 px-4 py-3">
-          <p className="flex items-center gap-2 font-display text-sm font-bold text-navy-900">
-            <ScanLine className="h-4 w-4 text-navy-500" />
+          <p className="flex items-center gap-2 font-display text-sm font-bold text-black">
+            <ScanLine className="h-4 w-4 text-neutral-600" />
             Scan Barcode dengan Kamera
           </p>
           <button
             type="button"
             onClick={exit}
-            className="rounded-lg p-1.5 text-navy-400 hover:bg-navy-50 hover:text-navy-800"
+            className="rounded-lg p-1.5 text-neutral-500 hover:bg-navy-50 hover:text-black"
             aria-label="Tutup"
           >
             <X className="h-5 w-5" />
@@ -163,7 +176,7 @@ export function CameraScanner({ open, onClose, onDetected }: CameraScannerProps)
           )}
           {error && (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center">
-              <CameraOff className="h-10 w-10 text-navy-400" />
+              <CameraOff className="h-10 w-10 text-neutral-500" />
               <p className="max-w-sm text-sm text-navy-200">{error}</p>
               <Button variant="outline" onClick={exit}>
                 Tutup
@@ -176,7 +189,7 @@ export function CameraScanner({ open, onClose, onDetected }: CameraScannerProps)
         </div>
 
         <div className="flex items-center justify-between gap-2 px-4 py-3">
-          <p className="text-xs text-navy-500">
+          <p className="text-xs text-neutral-600">
             Arahkan kamera ke kode barcode produk.
           </p>
           <div className="flex gap-2">

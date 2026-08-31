@@ -186,8 +186,8 @@ export function CashierPage() {
       <div className="space-y-4">
         <div className="rounded-2xl border border-navy-100 bg-white p-4 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-navy-900">
-              <ScanLine className="h-5 w-5 text-navy-600" />
+            <div className="flex items-center gap-2 text-black">
+              <ScanLine className="h-5 w-5 text-black" />
               <h2 className="font-display text-base font-bold">Scan Barcode</h2>
             </div>
             <Button
@@ -202,14 +202,14 @@ export function CashierPage() {
 
           <form onSubmit={handleManualSubmit} className="mt-3 flex gap-2">
             <div className="relative flex-1">
-              <Barcode className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-navy-400" />
+              <Barcode className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" />
               <input
                 value={manualBarcode}
                 onChange={(e) => setManualBarcode(e.target.value)}
                 placeholder="Ketik / scan barcode lalu Enter..."
                 inputMode="numeric"
                 autoFocus
-                className="w-full rounded-xl border border-navy-200 bg-white py-2.5 pl-9 pr-3 text-sm text-navy-900 outline-none placeholder:text-navy-300 focus:border-navy-500 focus:ring-2 focus:ring-navy-100"
+                className="w-full rounded-xl border border-navy-200 bg-white py-2.5 pl-9 pr-3 text-sm text-black outline-none placeholder:text-neutral-400 focus:border-navy-500 focus:ring-2 focus:ring-navy-100"
               />
             </div>
             <Button type="submit" variant="secondary">
@@ -228,24 +228,24 @@ export function CashierPage() {
               {lastProduct} ditambahkan ke keranjang.
             </p>
           )}
-          <p className="mt-2 text-[11px] text-navy-400">
+          <p className="mt-2 text-[11px] text-neutral-500">
             Scanner USB: arahkan ke barcode lalu Enter. Barcode yang sama akan menambah kuantitas.
           </p>
         </div>
 
         <div className="rounded-2xl border border-navy-100 bg-white p-4 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-navy-900">
-              <ShoppingCart className="h-5 w-5 text-navy-600" />
+            <div className="flex items-center gap-2 text-black">
+              <ShoppingCart className="h-5 w-5 text-black" />
               <h2 className="font-display text-base font-bold">Katalog</h2>
             </div>
             <div className="relative w-56 max-w-full">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-navy-400" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" />
               <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Cari produk..."
-                className="w-full rounded-xl border border-navy-200 bg-white py-2 pl-9 pr-3 text-sm text-navy-900 outline-none placeholder:text-navy-300 focus:border-navy-500 focus:ring-2 focus:ring-navy-100"
+                className="w-full rounded-xl border border-navy-200 bg-white py-2 pl-9 pr-3 text-sm text-black outline-none placeholder:text-neutral-400 focus:border-navy-500 focus:ring-2 focus:ring-navy-100"
               />
             </div>
           </div>
@@ -286,13 +286,13 @@ export function CashierPage() {
                         className="h-full w-full object-cover"
                       />
                     </div>
-                    <p className="mt-1.5 line-clamp-1 w-full text-[11px] font-semibold text-navy-900">
+                    <p className="mt-1.5 line-clamp-1 w-full text-[11px] font-semibold text-black">
                       {p.name}
                     </p>
-                    <p className="w-full text-[11px] font-bold text-navy-700">
+                    <p className="w-full text-[11px] font-bold text-black">
                       {formatRupiah(p.price)}
                     </p>
-                    <p className={cn('w-full text-[10px]', p.stock <= 0 ? 'text-red-500' : 'text-navy-400')}>
+                    <p className={cn('w-full text-[10px]', p.stock <= 0 ? 'text-red-500' : 'text-neutral-500')}>
                       {p.stock <= 0 ? 'Habis' : `Stok ${p.stock}`}
                     </p>
                   </button>
@@ -302,7 +302,7 @@ export function CashierPage() {
           )}
 
           {!loading && !error && filteredProducts.length === 0 && (
-            <p className="mt-4 rounded-xl bg-navy-50 py-6 text-center text-sm text-navy-400">
+            <p className="mt-4 rounded-xl bg-navy-50 py-6 text-center text-sm text-neutral-500">
               {products?.length ? 'Produk tidak ditemukan.' : 'Belum ada produk.'}
             </p>
           )}
@@ -313,8 +313,8 @@ export function CashierPage() {
       <div className="sticky top-20 flex flex-col gap-4">
         <div className="flex flex-col rounded-2xl border border-navy-100 bg-white shadow-sm">
           <div className="flex items-center justify-between border-b border-navy-100 px-4 py-3">
-            <h2 className="flex items-center gap-2 font-display text-base font-bold text-navy-900">
-              <ShoppingCart className="h-5 w-5 text-navy-600" />
+            <h2 className="flex items-center gap-2 font-display text-base font-bold text-black">
+              <ShoppingCart className="h-5 w-5 text-black" />
               Keranjang
               {items.length > 0 && (
                 <span className="rounded-full bg-navy-800 px-2 py-0.5 text-[10px] font-bold text-white">
@@ -336,10 +336,10 @@ export function CashierPage() {
           {items.length === 0 ? (
             <div className="flex flex-col items-center gap-2 py-12 text-center">
               <ShoppingCart className="h-10 w-10 text-navy-200" />
-              <p className="text-sm font-medium text-navy-400">
+              <p className="text-sm font-medium text-neutral-500">
                 Keranjang masih kosong.
               </p>
-              <p className="text-xs text-navy-300">
+              <p className="text-xs text-neutral-400">
                 Scan barcode atau pilih produk untuk memulai.
               </p>
             </div>
@@ -355,23 +355,23 @@ export function CashierPage() {
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="line-clamp-1 text-xs font-bold text-navy-900">
+                    <p className="line-clamp-1 text-xs font-bold text-black">
                       {item.product.name}
                     </p>
-                    <p className="text-xs font-semibold text-navy-600">
+                    <p className="text-xs font-semibold text-black">
                       {formatRupiah(item.product.price)}
                     </p>
                     <div className="mt-1 flex items-center gap-1">
                       <button
                         type="button"
                         onClick={() => decrement(item.product.id)}
-                        className="flex h-6 w-6 items-center justify-center rounded-md border border-navy-200 text-navy-700 hover:bg-navy-50"
+                        className="flex h-6 w-6 items-center justify-center rounded-md border border-navy-200 text-black hover:bg-navy-50"
                         aria-label="Kurangi"
                       >
                         <Minus className="h-3 w-3" />
                       </button>
                       <span
-                        className="w-9 text-center text-xs font-bold text-navy-900"
+                        className="w-9 text-center text-xs font-bold text-black"
                         contentEditable={false}
                       >
                         {item.quantity}
@@ -379,7 +379,7 @@ export function CashierPage() {
                       <button
                         type="button"
                         onClick={() => increment(item.product.id)}
-                        className="flex h-6 w-6 items-center justify-center rounded-md border border-navy-200 text-navy-700 hover:bg-navy-50"
+                        className="flex h-6 w-6 items-center justify-center rounded-md border border-navy-200 text-black hover:bg-navy-50"
                         aria-label="Tambah"
                       >
                         <Plus className="h-3 w-3" />
@@ -387,13 +387,13 @@ export function CashierPage() {
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-1">
-                    <p className="text-xs font-bold text-navy-900">
+                    <p className="text-xs font-bold text-black">
                       {formatRupiah(item.product.price * item.quantity)}
                     </p>
                     <button
                       type="button"
                       onClick={() => removeItem(item.product.id)}
-                      className="rounded p-1 text-navy-300 hover:bg-red-50 hover:text-red-500"
+                      className="rounded p-1 text-neutral-400 hover:bg-red-50 hover:text-red-500"
                       aria-label={`Hapus ${item.product.name}`}
                     >
                       <X className="h-3.5 w-3.5" />
@@ -413,14 +413,14 @@ export function CashierPage() {
             </span>
           </div>
           {items.length > 0 && (
-            <p className="mt-0.5 text-right text-xs text-navy-300">
+            <p className="mt-0.5 text-right text-xs text-neutral-400">
               {items.reduce((s, i) => s + i.quantity, 0)} item
             </p>
           )}
           <Button
             onClick={openCheckout}
             disabled={items.length === 0}
-            className="mt-4 w-full bg-white text-navy-900 hover:bg-navy-50"
+            className="mt-4 w-full bg-white text-black hover:bg-navy-50"
             size="lg"
           >
             <ReceiptText className="h-5 w-5" />
@@ -456,14 +456,14 @@ export function CashierPage() {
       >
         <div className="space-y-4">
           <div className="rounded-xl bg-navy-50 p-4">
-            <div className="flex justify-between text-sm text-navy-500">
+            <div className="flex justify-between text-sm text-neutral-600">
               <span>Total Belanja</span>
-              <span className="font-bold text-navy-900">{formatRupiah(total)}</span>
+              <span className="font-bold text-black">{formatRupiah(total)}</span>
             </div>
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-navy-800">
+            <label className="mb-1.5 block text-sm font-semibold text-black">
               Uang Dibayar (Rp)
             </label>
             <input
@@ -471,7 +471,7 @@ export function CashierPage() {
               min={0}
               value={payment}
               onChange={(e) => setPayment(e.target.value)}
-              className="w-full rounded-xl border border-navy-200 bg-white px-3.5 py-2.5 text-lg font-bold text-navy-900 outline-none focus:border-navy-500 focus:ring-2 focus:ring-navy-100"
+              className="w-full rounded-xl border border-navy-200 bg-white px-3.5 py-2.5 text-lg font-bold text-black outline-none focus:border-navy-500 focus:ring-2 focus:ring-navy-100"
               autoFocus
             />
             <div className="mt-2 flex flex-wrap gap-1.5">
@@ -480,7 +480,7 @@ export function CashierPage() {
                   key={n}
                   type="button"
                   onClick={() => setPayment(String(n))}
-                  className="rounded-lg border border-navy-200 px-2.5 py-1 text-xs font-semibold text-navy-600 transition-colors hover:bg-navy-50"
+                  className="rounded-lg border border-navy-200 px-2.5 py-1 text-xs font-semibold text-black transition-colors hover:bg-navy-50"
                 >
                   {formatRupiah(n)}
                 </button>

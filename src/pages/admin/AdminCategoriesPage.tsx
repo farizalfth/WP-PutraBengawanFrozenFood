@@ -155,7 +155,7 @@ export function AdminCategoriesPage() {
         <AdminCard>
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-navy-100 p-4">
             <SearchInput value={query} onChange={setQuery} placeholder="Cari kategori..." />
-            <p className="text-xs font-semibold text-navy-400">
+            <p className="text-xs font-semibold text-neutral-500">
               {filtered.length} kategori
             </p>
           </div>
@@ -181,10 +181,10 @@ export function AdminCategoriesPage() {
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-bold text-navy-900">
+                    <p className="truncate text-sm font-bold text-black">
                       {c.name}
                     </p>
-                    <p className="line-clamp-1 text-xs text-navy-400">
+                    <p className="line-clamp-1 text-xs text-neutral-500">
                       {c.description || 'Tidak ada deskripsi'}
                     </p>
                   </div>
@@ -192,7 +192,7 @@ export function AdminCategoriesPage() {
                     <button
                       type="button"
                       onClick={() => openEdit(c)}
-                      className="rounded-lg p-2 text-navy-600 transition-colors hover:bg-navy-100"
+                      className="rounded-lg p-2 text-black transition-colors hover:bg-navy-100"
                       aria-label={`Edit ${c.name}`}
                     >
                       <Pencil className="h-4 w-4" />

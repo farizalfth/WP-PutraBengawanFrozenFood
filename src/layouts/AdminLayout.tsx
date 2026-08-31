@@ -59,7 +59,7 @@ function SidebarContent({
                 'flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold transition-colors',
                 isActive
                   ? 'bg-navy-800 text-white shadow-sm'
-                  : 'text-navy-600 hover:bg-navy-50 hover:text-navy-900',
+                  : 'text-black hover:bg-navy-50 hover:text-black',
               )
             }
           >
@@ -73,7 +73,7 @@ function SidebarContent({
         <NavLink
           to="/kasir"
           onClick={onNavigate}
-          className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-navy-600 transition-colors hover:bg-navy-50 hover:text-navy-900"
+          className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-navy-50 hover:text-black"
         >
           <Store className="h-4.5 w-4.5" />
           Buka Kasir
@@ -90,10 +90,10 @@ function SidebarContent({
       </div>
 
       <div className="border-t border-navy-100 px-5 py-4">
-        <p className="text-xs font-bold text-navy-900">
+        <p className="text-xs font-bold text-black">
           {profile?.name || 'Pengguna'}
         </p>
-        <p className="text-xs capitalize text-navy-400">{profile?.role ?? '-'}</p>
+        <p className="text-xs capitalize text-neutral-500">{profile?.role ?? '-'}</p>
       </div>
     </div>
   )
@@ -121,7 +121,7 @@ export function AdminLayout() {
             <button
               type="button"
               onClick={() => setDrawerOpen(false)}
-              className="absolute right-3 top-4 rounded-lg p-1.5 text-navy-500 hover:bg-navy-50"
+              className="absolute right-3 top-4 rounded-lg p-1.5 text-neutral-600 hover:bg-navy-50"
               aria-label="Tutup menu"
             >
               <X className="h-5 w-5" />
@@ -137,21 +137,21 @@ export function AdminLayout() {
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
-              className="rounded-lg p-2 text-navy-700 hover:bg-navy-50 lg:hidden"
+              className="rounded-lg p-2 text-black hover:bg-navy-50 lg:hidden"
               aria-label="Buka menu"
             >
               <Menu className="h-5 w-5" />
             </button>
-            <h1 className="font-display text-lg font-bold text-navy-900">
+            <h1 className="font-display text-lg font-bold text-black">
               Dashboard Admin
             </h1>
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden text-right sm:block">
-              <p className="text-sm font-bold text-navy-900">
+              <p className="text-sm font-bold text-black">
                 {profile?.name || '-'}
               </p>
-              <p className="text-xs capitalize text-navy-400">
+              <p className="text-xs capitalize text-neutral-500">
                 {profile?.role ?? '-'}
               </p>
             </div>
