@@ -172,6 +172,36 @@ export async function deleteProduct(id: string): Promise<{
   }
 }
 
+export async function deleteAllProducts(): Promise<{
+  error: string | null
+}> {
+  try {
+    const client = getSupabaseClient()
+
+    // Ambil seluruh ID produk yang akan dihapus
+    const { data: productKeys, error: listErr } = await client
+      .from('products')
+      .select('id')
+    if (listErr) return { error: listErr.message }
+
+    const ids = (productKeys ?? []).map((p) => (p as { id: string }).id)
+    if (ids.length > 0) {
+      // Hapus dulu referensi pada transaction_items agar tidak melanggar FK
+      const { error: itemsErr } = await client
+        .from('transaction_items')
+        .delete()
+        .in('product_id', ids)
+      if (itemsErr) return { error: itemsErr.message }
+    }
+
+    const { error } = await client.from('products').delete().neq('id', '')
+    if (error) return { error: error.message }
+    return { error: null }
+  } catch (e) {
+    return { error: (e as Error).message }
+  }
+}
+
 export async function adjustStock(
   id: string,
   newStock: number,

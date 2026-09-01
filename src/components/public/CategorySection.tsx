@@ -33,7 +33,7 @@ export function CategorySection() {
     : []
 
   return (
-    <section className="relative bg-white py-16">
+    <section className="relative bg-navy-50 py-20 sm:py-24">
       <div className="container-site">
         <Reveal>
           <SectionTitle
@@ -78,7 +78,7 @@ export function CategorySection() {
                     <Reveal key={cat.id} delay={idx * 60}>
                       <Link
                         to={`/produk?kategori=${encodeURIComponent(cat.name)}`}
-                        className="group block overflow-hidden rounded-2xl border border-navy-100 bg-gradient-to-br from-navy-800 to-royal-800 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                        className="group block overflow-hidden rounded-[20px] border border-navy-100 bg-gradient-to-br from-royal-700 to-royal-900 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_45px_rgba(25,64,154,0.25)]"
                       >
                         <div className="relative aspect-[4/3]">
                           <ImageWithFallback
@@ -92,7 +92,7 @@ export function CategorySection() {
                           <span className="font-display text-sm font-bold text-white">
                             {cat.name}
                           </span>
-                          <span className="shrink-0 rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-semibold text-ice-200">
+                          <span className="shrink-0 rounded-full bg-ice-400 px-2.5 py-0.5 text-[10px] font-bold text-navy-950">
                             {cat.productCount} produk
                           </span>
                         </div>

@@ -18,10 +18,12 @@ const values = [
 export function TentangKamiPage() {
   return (
     <div className="bg-white">
-      <section className="relative overflow-hidden bg-gradient-to-br from-navy-900 to-royal-800 py-16 text-white">
+      <section className="relative overflow-hidden bg-navy-950 py-16 text-white">
+        <div className="absolute inset-0 bg-gradient-to-br from-royal-950 via-navy-950 to-navy-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(0,209,249,0.15),transparent_55%)]" />
         <Snowfall count={12} />
         <div className="container-site relative">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ice-300">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-ice-300">
             Tentang Kami
           </p>
           <h1 className="mt-2 font-display text-3xl font-extrabold sm:text-4xl">
@@ -44,7 +46,7 @@ export function TentangKamiPage() {
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-900/70 to-transparent" />
                 <div className="absolute bottom-4 left-4 flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-lg">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy-800 text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-ice-400 text-white">
                     <MapPin className="h-5 w-5" />
                   </div>
                   <div>
@@ -74,7 +76,7 @@ export function TentangKamiPage() {
             <div className="mt-6 space-y-3">
               {features.map((f) => (
                 <div key={f.title} className="flex items-center gap-4 rounded-2xl border border-navy-100 bg-navy-50/40 p-3.5">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy-800 text-white">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ice-400 text-white">
                     <f.icon className="h-5 w-5" />
                   </div>
                   <div>
@@ -99,7 +101,7 @@ export function TentangKamiPage() {
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 80}>
                 <div className="h-full rounded-2xl border border-navy-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-50 text-navy-700">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-ice-400 text-white">
                     <SnowflakeIcon className="h-5 w-5" />
                   </div>
                   <h3 className="mt-4 font-display text-base font-bold text-navy-900">

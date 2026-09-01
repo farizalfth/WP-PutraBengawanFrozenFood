@@ -40,13 +40,13 @@ function TestimonialsGrid() {
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {testimonials.map((t, i) => (
         <Reveal key={t.id} delay={(i % 3) * 80}>
-          <figure className="flex h-full flex-col rounded-2xl border border-navy-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+          <figure className="flex h-full flex-col items-center rounded-[10px] border border-navy-100 bg-white p-7 text-center shadow-sm transition-shadow hover:shadow-md">
             <StarRating rating={t.rating} />
             <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-navy-700">
               “{t.message}”
             </blockquote>
-            <figcaption className="mt-5 flex items-center gap-3 border-t border-navy-50 pt-4">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-navy-800 text-sm font-bold text-white">
+            <figcaption className="mt-5 flex flex-col items-center">
+              <span className="mb-2 flex h-14 w-14 items-center justify-center rounded-full border-4 border-ice-400 bg-royal-600 text-base font-bold text-white">
                 {t.name.charAt(0).toUpperCase()}
               </span>
               <div>
@@ -64,10 +64,12 @@ function TestimonialsGrid() {
 export function TestimoniPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-br from-navy-900 to-royal-800 py-16 text-white">
+      <section className="relative overflow-hidden bg-navy-950 py-16 text-white">
+        <div className="absolute inset-0 bg-gradient-to-br from-royal-950 via-navy-950 to-navy-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(0,209,249,0.15),transparent_55%)]" />
         <Snowfall count={12} />
         <div className="container-site relative">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ice-300">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-ice-300">
             Testimoni
           </p>
           <h1 className="mt-2 font-display text-3xl font-extrabold sm:text-4xl">

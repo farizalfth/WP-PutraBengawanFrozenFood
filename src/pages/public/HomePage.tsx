@@ -1,21 +1,21 @@
 import HeroSection from '../../components/public/HeroSection'
-import ServiceHighlight from '../../components/public/ServiceHighlight'
-import BestSellerSection from '../../components/public/BestSellerSection'
-import CategorySection from '../../components/public/CategorySection'
+import FeatureSection from '../../components/public/FeatureSection'
 import AboutSection from '../../components/public/AboutSection'
+import CounterSection from '../../components/public/CounterSection'
+import ServiceSection from '../../components/public/ServiceSection'
+import BestSellerSection from '../../components/public/BestSellerSection'
 import TestimonialSection from '../../components/public/TestimonialSection'
-import ContactCta from '../../components/public/ContactCta'
 
 export function HomePage() {
   return (
     <>
       <HeroSection />
-      <ServiceHighlight />
-      <BestSellerSection />
-      <CategorySection />
+      <FeatureSection />
       <AboutSection />
+      <CounterSection />
+      <ServiceSection />
+      <BestSellerSection />
       <TestimonialSection />
-      <ContactCta />
     </>
   )
 }

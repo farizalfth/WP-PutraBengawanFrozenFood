@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard,
   Package,
@@ -12,6 +12,7 @@ import {
   X,
   ExternalLink,
   Store,
+  ShieldCheck,
 } from 'lucide-react'
 import { useAuthStore } from '../stores/authStore'
 import Logo from '../components/shared/Logo'
@@ -26,6 +27,15 @@ const navItems = [
   { to: '/admin/testimoni', label: 'Testimoni', icon: MessageSquareQuote },
   { to: '/admin/pengguna', label: 'Pengguna', icon: Users },
 ]
+
+const pageTitles: Record<string, string> = {
+  '/admin': 'Dashboard',
+  '/admin/produk': 'Produk',
+  '/admin/kategori': 'Kategori',
+  '/admin/transaksi': 'Transaksi',
+  '/admin/testimoni': 'Testimoni',
+  '/admin/pengguna': 'Pengguna',
+}
 
 function SidebarContent({
   onNavigate,
@@ -43,11 +53,18 @@ function SidebarContent({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="px-5 py-5">
+      <div className="border-b border-navy-100 px-5 py-5">
         <Logo variant="dark" />
+        <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-royal-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-royal-600">
+          <ShieldCheck className="h-3 w-3" />
+          Panel Admin
+        </span>
       </div>
 
-      <nav className="flex-1 space-y-1 overflow-y-auto px-3" aria-label="Menu admin">
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4" aria-label="Menu admin">
+        <p className="px-4 pb-2 text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+          Menu Utama
+        </p>
         {navItems.map((item) => (
           <NavLink
             key={item.to}
@@ -56,10 +73,10 @@ function SidebarContent({
             onClick={onNavigate}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold transition-colors',
+                'flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors',
                 isActive
-                  ? 'bg-navy-800 text-white shadow-sm'
-                  : 'text-black hover:bg-navy-50 hover:text-black',
+                  ? 'bg-royal-600 text-white shadow-sm'
+                  : 'text-black hover:bg-navy-50 hover:text-royal-600',
               )
             }
           >
@@ -73,7 +90,7 @@ function SidebarContent({
         <NavLink
           to="/kasir"
           onClick={onNavigate}
-          className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-navy-50 hover:text-black"
+          className="flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-navy-50 hover:text-royal-600"
         >
           <Store className="h-4.5 w-4.5" />
           Buka Kasir
@@ -89,11 +106,20 @@ function SidebarContent({
         </button>
       </div>
 
-      <div className="border-t border-navy-100 px-5 py-4">
-        <p className="text-xs font-bold text-black">
-          {profile?.name || 'Pengguna'}
-        </p>
-        <p className="text-xs capitalize text-neutral-500">{profile?.role ?? '-'}</p>
+      <div className="border-t border-navy-100 px-4 py-4">
+        <div className="flex items-center gap-3 rounded-xl bg-navy-50/70 p-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-ice-400 to-royal-600 text-sm font-bold text-white">
+            {(profile?.name ?? 'A').charAt(0).toUpperCase()}
+          </div>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-bold text-black">
+              {profile?.name || 'Pengguna'}
+            </p>
+            <p className="truncate text-xs capitalize text-neutral-500">
+              {profile?.role ?? '-'}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -102,6 +128,8 @@ function SidebarContent({
 export function AdminLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const profile = useAuthStore((s) => s.profile)
+  const { pathname } = useLocation()
+  const pageTitle = pageTitles[pathname] ?? 'Admin'
 
   return (
     <div className="flex min-h-screen bg-navy-50/70">
@@ -142,11 +170,23 @@ export function AdminLayout() {
             >
               <Menu className="h-5 w-5" />
             </button>
-            <h1 className="font-display text-lg font-bold text-black">
-              Dashboard Admin
-            </h1>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                Panel Admin
+              </p>
+              <h1 className="font-display text-lg font-bold leading-tight text-black">
+                {pageTitle}
+              </h1>
+            </div>
           </div>
           <div className="flex items-center gap-3">
+            <span className="hidden items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 sm:inline-flex">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              </span>
+              Online
+            </span>
             <div className="hidden text-right sm:block">
               <p className="text-sm font-bold text-black">
                 {profile?.name || '-'}
@@ -155,7 +195,7 @@ export function AdminLayout() {
                 {profile?.role ?? '-'}
               </p>
             </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-navy-800 text-sm font-bold text-white">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-ice-400 to-royal-600 text-sm font-bold text-white">
               {(profile?.name ?? 'A').charAt(0).toUpperCase()}
             </div>
           </div>

@@ -23,8 +23,8 @@ export function Logo({
         className={cn(
           'flex items-center justify-center rounded-xl shadow-md',
           variant === 'light'
-            ? 'bg-white text-navy-800'
-            : 'bg-navy-800 text-white',
+            ? 'bg-white text-royal-600'
+            : 'bg-gradient-to-br from-ice-400 to-royal-600 text-white',
         )}
         style={{ width: s.icon, height: s.icon }}
       >

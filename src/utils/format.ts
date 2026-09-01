@@ -1,3 +1,5 @@
+import { STORE_NAME } from './constants'
+
 export function formatRupiah(value: number): string {
   return new Intl.NumberFormat('id-ID', {
     style: 'currency',
@@ -66,5 +68,15 @@ export function generateInvoiceNumber(): string {
   const datePart = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`
   const timePart = `${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`
   const randomPart = String(Math.floor(Math.random() * 900) + 100)
-  return `INV-${datePart}-${timePart}-${randomPart}`
+  return `${invoicePrefix(STORE_NAME)}-${datePart}-${timePart}-${randomPart}`
+}
+
+function invoicePrefix(storeName: string): string {
+  const words = storeName.trim().split(/\s+/).filter(Boolean)
+  if (words.length === 0) return 'INV'
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase()
+  return words
+    .slice(0, 2)
+    .map((w) => w[0]!.toUpperCase())
+    .join('')
 }

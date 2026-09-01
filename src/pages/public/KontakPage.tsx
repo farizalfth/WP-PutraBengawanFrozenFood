@@ -16,10 +16,12 @@ export function KontakPage() {
 
   return (
     <div className="bg-white">
-      <section className="relative overflow-hidden bg-gradient-to-br from-navy-900 to-royal-800 py-16 text-white">
+      <section className="relative overflow-hidden bg-navy-950 py-16 text-white">
+        <div className="absolute inset-0 bg-gradient-to-br from-royal-950 via-navy-950 to-navy-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(0,209,249,0.15),transparent_55%)]" />
         <Snowfall count={12} />
         <div className="container-site relative">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ice-300">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-ice-300">
             Kontak
           </p>
           <h1 className="mt-2 font-display text-3xl font-extrabold sm:text-4xl">
@@ -36,7 +38,7 @@ export function KontakPage() {
           <div className="space-y-4 lg:col-span-2">
             <div className="overflow-hidden rounded-3xl border border-navy-100 bg-navy-800 p-6 text-white shadow-md">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#25D366]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366]">
                   <MessageCircle className="h-6 w-6" />
                 </div>
                 <div>
@@ -52,7 +54,7 @@ export function KontakPage() {
                 )}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
+                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
               >
                 <MessageCircle className="h-4 w-4" /> Chat WhatsApp
               </a>
@@ -99,7 +101,7 @@ export function KontakPage() {
 
                 <button
                   type="submit"
-                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-navy-800 px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-navy-700"
+                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-royal-600 px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-ice-400 hover:text-navy-950"
                 >
                   <Send className="h-4 w-4" /> Kirim ke WhatsApp
                 </button>

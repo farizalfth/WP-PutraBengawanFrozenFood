@@ -1,4 +1,4 @@
-import { SnowflakeIcon } from '../shared/Snowflakes'
+import { cn } from '../../lib/utils'
 
 interface SectionTitleProps {
   eyebrow?: string
@@ -17,29 +17,31 @@ export function SectionTitle({
 }: SectionTitleProps) {
   const alignment = align === 'center' ? 'text-center mx-auto' : 'text-left'
   return (
-    <div className={`max-w-2xl ${alignment}`}>
+    <div className={cn('max-w-3xl', alignment)}>
       {eyebrow && (
         <p
-          className={`mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] ${
-            light ? 'text-ice-300' : 'text-navy-500'
-          } ${align === 'center' ? 'justify-center' : ''}`}
+          className={cn(
+            'mb-3 text-xs font-bold uppercase tracking-[0.24em]',
+            light ? 'text-ice-300' : 'text-ice-400',
+          )}
         >
-          <SnowflakeIcon className="h-4 w-4" />
           {eyebrow}
         </p>
       )}
       <h2
-        className={`font-display text-2xl font-extrabold sm:text-3xl md:text-4xl ${
-          light ? 'text-white' : 'text-navy-900'
-        }`}
+        className={cn(
+          'font-display text-3xl font-extrabold capitalize leading-[1.15] sm:text-4xl md:text-[2.6rem]',
+          light ? 'text-white' : 'text-navy-950',
+        )}
       >
         {title}
       </h2>
       {description && (
         <p
-          className={`mt-3 text-sm leading-relaxed sm:text-base ${
-            light ? 'text-navy-200' : 'text-navy-500'
-          }`}
+          className={cn(
+            'mt-4 text-sm leading-relaxed sm:text-base',
+            light ? 'text-navy-200' : 'text-navy-500',
+          )}
         >
           {description}
         </p>

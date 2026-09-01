@@ -1,7 +1,7 @@
 import { Printer } from 'lucide-react'
 import type { Transaction, TransactionItem } from '../../types'
 import { formatInvoiceDate, formatNumber, formatRupiah } from '../../utils/format'
-import { STORE_SETTINGS } from '../../utils/constants'
+import { STORE_NAME, STORE_TAGLINE, STORE_SETTINGS } from '../../utils/constants'
 import { Button } from '../ui/Button'
 
 interface ReceiptProps {
@@ -15,16 +15,18 @@ export function Receipt({ transaction, items }: ReceiptProps) {
   return (
     <div id="receipt-print" className="receipt-sheet bg-white p-4">
       <div className="text-center">
-        <p className="font-display text-sm font-extrabold tracking-wide text-black">
-          PUTRA BENGAWAN
+        <p className="font-display text-base font-extrabold tracking-wide text-black">
+          {STORE_NAME}
         </p>
-        <p className="text-xs font-semibold tracking-[0.2em] text-neutral-600">
-          FROZEN FOOD STORE
+        <p className="text-[11px] font-semibold tracking-[0.2em] text-neutral-600">
+          {STORE_TAGLINE}
         </p>
-        <p className="mt-1 text-[10px] leading-snug text-neutral-500">
-          {STORE_SETTINGS.address.split(',').slice(0, 3).join(',')}
-        </p>
-        <p className="text-[10px] text-neutral-500">{STORE_SETTINGS.phone}</p>
+        <div className="mx-auto mt-1 text-[10px] leading-snug text-neutral-500">
+          <p>{STORE_SETTINGS.address}</p>
+          <p>Telp: {STORE_SETTINGS.phone}</p>
+          <p>WA: {STORE_SETTINGS.whatsapp.replace(/\D/g, '').replace(/^62/, '0')}</p>
+          <p>{STORE_SETTINGS.instagram}</p>
+        </div>
       </div>
 
       <div className="my-2 border-t border-dashed border-navy-300" />

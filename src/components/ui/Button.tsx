@@ -13,15 +13,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-navy-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 active:scale-[0.98]'
+  'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ice-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 active:scale-[0.98]'
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-navy-800 text-white shadow-sm hover:bg-navy-900 hover:shadow-md',
+    'bg-royal-600 text-white shadow-sm hover:bg-ice-400 hover:text-navy-950',
   secondary: 'bg-navy-100 text-black hover:bg-navy-200',
   outline:
-    'border border-navy-200 bg-white text-black hover:border-navy-400 hover:bg-navy-50',
-  ghost: 'text-black hover:bg-navy-50',
+    'border border-navy-200 bg-white text-black hover:border-royal-500 hover:text-royal-600',
+  ghost: 'text-black hover:bg-navy-50 hover:text-royal-600',
   white: 'bg-white text-black shadow hover:bg-navy-50',
   danger: 'bg-red-600 text-white shadow-sm hover:bg-red-700',
 }

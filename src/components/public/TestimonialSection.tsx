@@ -25,7 +25,7 @@ export function TestimonialSection() {
   const visible = testimonials?.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE) ?? []
 
   return (
-    <section className="relative bg-navy-50/60 py-16">
+    <section className="relative bg-navy-50/50 py-20 sm:py-24">
       <div className="container-site">
         <Reveal>
           <SectionTitle
@@ -64,26 +64,21 @@ export function TestimonialSection() {
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {visible.map((t, i) => (
                   <Reveal key={t.id} delay={i * 80}>
-                    <figure className="flex h-full flex-col rounded-2xl border border-navy-100 bg-white p-6 shadow-sm">
-                      <div className="flex items-center justify-between">
-                        <StarRating rating={t.rating} />
-                        <MessageSquareQuote className="h-6 w-6 text-navy-200" />
-                      </div>
-                      <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-navy-700">
+                    <figure className="flex h-full flex-col items-center rounded-[10px] border border-navy-100 bg-white p-8 text-center transition-shadow duration-300 hover:shadow-[0_0_45px_rgba(0,0,0,0.08)]">
+                      <StarRating rating={t.rating} />
+                      <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-navy-500">
                         “{t.message}”
                       </blockquote>
-                      <figcaption className="mt-5 flex items-center gap-3 border-t border-navy-50 pt-4">
-                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-navy-800 text-sm font-bold text-white">
+                      <figcaption className="flex flex-col items-center">
+                        <span className="mb-2 flex h-14 w-14 items-center justify-center rounded-full border-4 border-ice-400 bg-royal-600 font-display text-lg font-bold text-white">
                           {t.name.charAt(0).toUpperCase()}
                         </span>
-                        <div>
-                          <p className="text-sm font-bold text-navy-900">
-                            {t.name}
-                          </p>
-                          <p className="text-xs text-navy-400">
-                            {t.job || 'Pelanggan'}
-                          </p>
-                        </div>
+                        <p className="text-sm font-bold text-navy-950">
+                          {t.name}
+                        </p>
+                        <p className="text-xs text-navy-400">
+                          {t.job || 'Pelanggan'}
+                        </p>
                       </figcaption>
                     </figure>
                   </Reveal>
@@ -109,7 +104,7 @@ export function TestimonialSection() {
                       className={cn(
                         'h-2.5 rounded-full transition-all',
                         i === page
-                          ? 'w-6 bg-navy-800'
+                          ? 'w-6 bg-royal-600'
                           : 'w-2.5 bg-navy-200 hover:bg-navy-300',
                       )}
                       aria-label={`Halaman ${i + 1}`}

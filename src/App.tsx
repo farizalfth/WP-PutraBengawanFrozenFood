@@ -24,7 +24,6 @@ import AdminTestimonialsPage from './pages/admin/AdminTestimonialsPage'
 import AdminUsersPage from './pages/admin/AdminUsersPage'
 
 import CashierPage from './pages/cashier/CashierPage'
-import CashierRiwayatPage from './pages/cashier/CashierRiwayatPage'
 import NotFoundPage from './pages/public/NotFoundPage'
 
 function AppBootstrap() {
@@ -67,7 +66,6 @@ function App() {
         <Route element={<CashierRoute />}>
           <Route path="/kasir" element={<CashierLayout />}>
             <Route index element={<CashierPage />} />
-            <Route path="riwayat" element={<CashierRiwayatPage />} />
           </Route>
         </Route>
 

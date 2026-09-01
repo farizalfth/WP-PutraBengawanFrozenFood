@@ -61,10 +61,12 @@ const pembayaran = [
 export function CaraOrderPage() {
   return (
     <div className="bg-white">
-      <section className="relative overflow-hidden bg-gradient-to-br from-navy-900 to-royal-800 py-16 text-white">
+      <section className="relative overflow-hidden bg-navy-950 py-16 text-white">
+        <div className="absolute inset-0 bg-gradient-to-br from-royal-950 via-navy-950 to-navy-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(0,209,249,0.15),transparent_55%)]" />
         <Snowfall count={12} />
         <div className="container-site relative">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ice-300">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-ice-300">
             Panduan
           </p>
           <h1 className="mt-2 font-display text-3xl font-extrabold sm:text-4xl">
@@ -88,19 +90,22 @@ export function CaraOrderPage() {
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {steps.map((s, i) => (
             <Reveal key={s.step} delay={i * 70}>
-              <div className="relative h-full rounded-2xl border border-navy-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-                <span className="absolute right-5 top-4 font-display text-4xl font-extrabold text-navy-100">
+              <div className="group relative h-full overflow-hidden rounded-2xl border border-navy-100 bg-white p-6 shadow-sm transition-all duration-500 hover:shadow-md">
+                <span className="absolute inset-0 origin-bottom scale-y-0 bg-ice-400 transition-transform duration-500 group-hover:scale-y-100" />
+                <span className="absolute right-5 top-4 font-display text-4xl font-extrabold text-navy-100 transition-colors duration-500 group-hover:text-white/60">
                   {s.step}
                 </span>
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy-800 text-white">
-                  <s.icon className="h-6 w-6" />
+                <div className="relative">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-ice-400 text-navy-950 transition-transform duration-500 group-hover:rotate-[360deg]">
+                    <s.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="mt-5 font-display text-lg font-bold text-navy-900 transition-colors duration-500 group-hover:text-navy-950">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-navy-500 transition-colors duration-500 group-hover:text-navy-800">
+                    {s.text}
+                  </p>
                 </div>
-                <h3 className="mt-4 font-display text-base font-bold text-navy-900">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-navy-500">
-                  {s.text}
-                </p>
               </div>
             </Reveal>
           ))}
@@ -140,13 +145,13 @@ export function CaraOrderPage() {
                   )}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
                 >
                   <MessageCircle className="h-4 w-4" /> Chat WhatsApp
                 </a>
                 <Link
                   to="/produk"
-                  className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-navy-900 transition-opacity hover:opacity-90"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-navy-900 transition-opacity hover:opacity-90"
                 >
                   Lihat Produk
                 </Link>

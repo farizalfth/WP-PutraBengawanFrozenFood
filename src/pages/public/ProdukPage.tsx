@@ -39,10 +39,12 @@ export function ProdukPage() {
 
   return (
     <div className="bg-navy-50/40">
-      <section className="relative overflow-hidden bg-gradient-to-br from-navy-900 to-royal-800 py-14 text-white">
+      <section className="relative overflow-hidden bg-navy-950 py-14 text-white">
+        <div className="absolute inset-0 bg-gradient-to-br from-royal-950 via-navy-950 to-navy-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(0,209,249,0.15),transparent_55%)]" />
         <SnowflakeIcon className="pointer-events-none absolute -right-10 top-10 h-40 w-40 opacity-10" />
         <div className="container-site relative">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ice-300">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-ice-300">
             Katalog
           </p>
           <h1 className="mt-2 font-display text-3xl font-extrabold sm:text-4xl">
@@ -64,7 +66,7 @@ export function ProdukPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Cari produk..."
-              className="w-full rounded-xl border border-navy-200 bg-white py-2.5 pl-10 pr-4 text-sm text-navy-900 shadow-sm outline-none placeholder:text-navy-300 focus:border-navy-500 focus:ring-2 focus:ring-navy-100"
+              className="w-full rounded-full border border-navy-200 bg-white py-2.5 pl-10 pr-4 text-sm text-navy-900 shadow-sm outline-none placeholder:text-navy-300 focus:border-navy-500 focus:ring-2 focus:ring-navy-100"
             />
           </div>
         </div>
@@ -76,7 +78,7 @@ export function ProdukPage() {
             className={cn(
               'shrink-0 rounded-full px-4 py-2 text-xs font-bold transition-colors',
               !activeCategory
-                ? 'bg-navy-800 text-white'
+                ? 'bg-royal-600 text-white'
                 : 'border border-navy-200 bg-white text-navy-600 hover:bg-navy-50',
             )}
           >
@@ -90,7 +92,7 @@ export function ProdukPage() {
               className={cn(
                 'shrink-0 rounded-full px-4 py-2 text-xs font-bold transition-colors',
                 activeCategory === c.name
-                  ? 'bg-navy-800 text-white'
+                  ? 'bg-royal-600 text-white'
                   : 'border border-navy-200 bg-white text-navy-600 hover:bg-navy-50',
               )}
             >

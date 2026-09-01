@@ -12,7 +12,7 @@ export function BestSellerSection() {
   const { data: products, error, loading, refetch } = useAsyncData(listBestSellers)
 
   return (
-    <section className="relative bg-navy-50/60 py-16">
+    <section className="relative bg-white py-20 sm:py-24">
       <div className="container-site">
         <Reveal>
           <SectionTitle
@@ -56,7 +56,7 @@ export function BestSellerSection() {
               <div className="mt-10 text-center">
                 <Link
                   to="/produk"
-                  className="inline-flex items-center gap-2 rounded-xl bg-navy-800 px-6 py-3 text-sm font-bold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-navy-900 hover:shadow-md"
+                  className="inline-flex items-center gap-2 rounded-full bg-royal-600 px-7 py-3 text-sm font-bold text-white transition-colors hover:bg-ice-400 hover:text-navy-950"
                 >
                   Lihat Semua Produk
                   <ArrowRight className="h-4 w-4" />

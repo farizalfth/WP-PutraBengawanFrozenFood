@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { LogIn, Menu, MessageCircle, X } from 'lucide-react'
-import Logo from '../shared/Logo'
-import { waLink } from '../../utils/constants'
+import { LogIn, Menu, Phone, X } from 'lucide-react'
+import { SnowflakeIcon } from '../shared/Snowflakes'
+import { waLink, STORE_SETTINGS } from '../../utils/constants'
 import { cn } from '../../lib/utils'
 
 const links = [
@@ -40,16 +40,31 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full bg-white/95 backdrop-blur transition-shadow duration-300',
-        scrolled ? 'shadow-md' : 'shadow-sm',
+        'sticky top-0 z-50 w-full border-b border-white/0 transition-all duration-300',
+        scrolled ? 'bg-navy-50/95 shadow-md backdrop-blur' : 'bg-navy-50',
       )}
     >
       <div className="flex items-center justify-between gap-6 py-3 pl-4 pr-3 lg:px-8">
         <Link to="/" aria-label="Putra Bengawan Frozen Food" className="shrink-0">
-          <Logo variant="dark" />
+          <span className="flex items-center gap-2.5">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-ice-400 text-white">
+              <SnowflakeIcon className="h-6 w-6" />
+            </span>
+            <span className="leading-tight">
+              <span className="block font-display text-lg font-extrabold text-royal-600">
+                Putra Bengawan
+              </span>
+              <span className="block text-[10px] font-semibold tracking-[0.22em] text-navy-500">
+                FROZEN FOOD
+              </span>
+            </span>
+          </span>
         </Link>
 
-        <nav className="hidden flex-1 items-center justify-center gap-1 lg:flex" aria-label="Menu utama">
+        <nav
+          className="hidden flex-1 items-center justify-center gap-1 lg:flex"
+          aria-label="Menu utama"
+        >
           {links.map((link) => (
             <NavLink
               key={link.to}
@@ -57,10 +72,10 @@ export function Navbar() {
               end={link.to === '/'}
               className={({ isActive }) =>
                 cn(
-                  'rounded-lg px-3 py-2 text-sm font-semibold transition-colors',
+                  'nav-item relative px-3 py-2 font-display text-[15px] font-semibold transition-colors',
                   isActive
-                    ? 'bg-navy-50 text-navy-800'
-                    : 'text-navy-600 hover:bg-navy-50 hover:text-navy-900',
+                    ? 'acuas-active text-royal-600'
+                    : 'text-navy-800 hover:text-royal-600',
                 )
               }
             >
@@ -69,29 +84,35 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-3">
+          <div className="hidden flex-col border-r border-ice-400 pr-4 text-right xl:flex">
+            <span className="text-xs font-medium text-navy-500">
+              Gratis Informasi
+            </span>
           <a
-            href={waLink(
-              'Halo Putra Bengawan Frozen Food, saya ingin bertanya tentang produk Anda.',
-            )}
+            href={waLink()}
             target="_blank"
             rel="noreferrer"
-            className="hidden items-center gap-2 rounded-xl border border-navy-100 px-3.5 py-2.5 text-sm font-semibold text-navy-800 transition-colors hover:bg-navy-50 sm:inline-flex"
+            className="inline-flex items-center gap-1 text-sm font-bold text-royal-600"
           >
-            <MessageCircle className="h-4 w-4 text-[#25D366]" />
-            WhatsApp
+            <Phone className="h-3.5 w-3.5" />
+            {STORE_SETTINGS.phone}
           </a>
-          <Link
-            to="/admin/login"
-            className="inline-flex items-center gap-2 rounded-xl bg-navy-800 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-navy-900 hover:shadow-md"
-          >
-            <LogIn className="h-4 w-4" />
-            Admin
-          </Link>
+        </div>
+
+        <Link
+          to="/admin/login"
+          className="inline-flex items-center gap-2 rounded-full bg-royal-600 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-royal-500"
+          aria-label="Masuk Admin"
+        >
+          <LogIn className="h-4 w-4" />
+          <span className="hidden md:inline">Admin</span>
+        </Link>
+
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className="rounded-xl border border-navy-100 p-2 text-navy-800 lg:hidden"
+            className="rounded-full border border-navy-200 p-2 text-navy-700 lg:hidden"
             aria-label={open ? 'Tutup menu' : 'Buka menu'}
             aria-expanded={open}
           >
@@ -101,7 +122,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="absolute inset-x-0 top-full border-t border-navy-100 bg-white shadow-lg lg:hidden">
+        <div className="inset-x-0 top-full border-t border-navy-100 bg-navy-50 lg:hidden">
           <nav className="container-site flex flex-col gap-1 py-4" aria-label="Menu mobile">
             {links.map((link) => (
               <NavLink
@@ -110,30 +131,19 @@ export function Navbar() {
                 end={link.to === '/'}
                 className={({ isActive }) =>
                   cn(
-                    'rounded-xl px-3 py-3 text-sm font-semibold transition-colors',
+                    'rounded-xl px-3 py-3 font-display text-sm font-semibold transition-colors',
                     isActive
-                      ? 'bg-navy-50 text-navy-800'
-                      : 'text-navy-600 hover:bg-gray-50',
+                      ? 'bg-white text-royal-600'
+                      : 'text-navy-700 hover:bg-white',
                   )
                 }
               >
                 {link.label}
               </NavLink>
             ))}
-            <a
-              href={waLink(
-                'Halo Putra Bengawan Frozen Food, saya ingin bertanya tentang produk Anda.',
-              )}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl border border-navy-100 px-4 py-3 text-sm font-semibold text-navy-800"
-            >
-              <MessageCircle className="h-4 w-4 text-[#25D366]" />
-              Chat WhatsApp
-            </a>
             <Link
               to="/admin/login"
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-navy-800 px-4 py-3 text-sm font-semibold text-white"
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-royal-600 px-4 py-3 text-sm font-semibold text-white"
             >
               <LogIn className="h-4 w-4" />
               Masuk Admin

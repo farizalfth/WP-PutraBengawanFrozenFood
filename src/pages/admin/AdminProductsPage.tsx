@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, lazy, Suspense } from 'react'
 import {
   Package,
   Pencil,
   Plus,
   RefreshCw,
+  ScanLine,
   Snowflake,
   Trash2,
 } from 'lucide-react'
@@ -11,6 +12,7 @@ import type { Category, Product } from '../../types'
 import {
   createProduct,
   deleteProduct,
+  deleteAllProducts,
   listProducts,
   updateProduct,
 } from '../../services/products'
@@ -32,6 +34,12 @@ import {
   SearchInput,
 } from '../../components/admin/AdminShared'
 import { Field, Input, Select, Textarea, Badge } from '../../components/ui/FormControls'
+
+const CameraScanner = lazy(() =>
+  import('../../components/cashier/CameraScanner').then((m) => ({
+    default: m.CameraScanner,
+  })),
+)
 
 interface FormState {
   id?: string
@@ -69,6 +77,11 @@ export function AdminProductsPage() {
 
   const [deleteTarget, setDeleteTarget] = useState<Product | null>(null)
   const [deleting, setDeleting] = useState(false)
+
+  const [deleteAllOpen, setDeleteAllOpen] = useState(false)
+  const [deletingAll, setDeletingAll] = useState(false)
+
+  const [scannerOpen, setScannerOpen] = useState(false)
 
   const toast = useToast()
 
@@ -182,15 +195,39 @@ export function AdminProductsPage() {
     fetchData()
   }
 
+  const handleDeleteAll = async () => {
+    setDeletingAll(true)
+    const res = await deleteAllProducts()
+    setDeletingAll(false)
+    if (res.error) {
+      toast.error(`Gagal menghapus semua produk: ${res.error}`)
+      return
+    }
+    toast.success('Semua produk berhasil dihapus.')
+    setDeleteAllOpen(false)
+    fetchData()
+  }
+
   return (
     <div>
       <AdminPageHeader
         title="Produk"
         description="Kelola katalog produk toko."
         action={
-          <Button onClick={openCreate}>
-            <Plus className="h-4 w-4" /> Tambah Produk
-          </Button>
+          <div className="flex flex-wrap items-center gap-2">
+            {!loading && products.length > 0 && (
+              <Button
+                variant="outline"
+                onClick={() => setDeleteAllOpen(true)}
+                className="border-red-200 text-red-600 hover:border-red-300 hover:bg-red-50 hover:text-red-700"
+              >
+                <Trash2 className="h-4 w-4" /> Hapus Semua
+              </Button>
+            )}
+            <Button onClick={openCreate}>
+              <Plus className="h-4 w-4" /> Tambah Produk
+            </Button>
+          </div>
         }
       />
 
@@ -325,13 +362,25 @@ export function AdminProductsPage() {
               placeholder="cth: Kanzler Single Original 65 gr"
             />
           </Field>
-          <Field label="Barcode" required hint="Kode barcode unik produk">
-            <Input
-              value={form.barcode}
-              onChange={(e) => setForm({ ...form, barcode: e.target.value.replace(/[^0-9]/g, '') })}
-              placeholder="8991234567890"
-              inputMode="numeric"
-            />
+          <Field label="Barcode" required hint="Kode barcode unik produk. Bisa diketik manual atau scan kamera.">
+            <div className="flex gap-2">
+              <Input
+                value={form.barcode}
+                onChange={(e) => setForm({ ...form, barcode: e.target.value.replace(/[^0-9]/g, '') })}
+                placeholder="8991234567890"
+                inputMode="numeric"
+                className="flex-1"
+              />
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setScannerOpen(true)}
+                title="Scan barcode dengan kamera"
+              >
+                <ScanLine className="h-4 w-4" />
+                Scan
+              </Button>
+            </div>
           </Field>
           <Field label="Kategori">
             <Select
@@ -415,6 +464,34 @@ export function AdminProductsPage() {
         onCancel={() => setDeleteTarget(null)}
         loading={deleting}
       />
+
+      <ConfirmDialog
+        open={deleteAllOpen}
+        title="Hapus Semua Produk"
+        description="Yakin ingin menghapus SEMUA produk? Tindakan ini tidak dapat dibatalkan. Anda bisa menambahkan produk real kembali setelahnya."
+        confirmText="Ya, Hapus Semua"
+        onConfirm={handleDeleteAll}
+        onCancel={() => setDeleteAllOpen(false)}
+        loading={deletingAll}
+      />
+
+      <Suspense
+        fallback={
+          <div className="fixed inset-0 z-[70] flex items-center justify-center bg-navy-950/60">
+            <Spinner label="Membuka kamera..." />
+          </div>
+        }
+      >
+        <CameraScanner
+          open={scannerOpen}
+          onClose={() => setScannerOpen(false)}
+          onDetected={(barcode) => {
+            setScannerOpen(false)
+            setForm((f) => ({ ...f, barcode }))
+            toast.success(`Barcode ${barcode} terdeteksi.`)
+          }}
+        />
+      </Suspense>
     </div>
   )
 }
