@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Package, Snowflake, ThumbsUp, Truck } from 'lucide-react'
 import Reveal from '../shared/Reveal'
+import { useAsyncData } from '../../hooks/useAsyncData'
+import { getPublicCounters } from '../../services/stats'
 
 function Counter({
   to,
@@ -47,14 +49,15 @@ function Counter({
   )
 }
 
-const counters = [
-  { icon: ThumbsUp, label: 'Pelanggan Puas', to: 1500 },
-  { icon: Package, label: 'Varian Produk', to: 100 },
-  { icon: Truck, label: 'Pengiriman', to: 500 },
-  { icon: Snowflake, label: 'Tahun Pengalaman', to: 5 },
-]
-
 export function CounterSection() {
+  const { data } = useAsyncData(getPublicCounters, [])
+  const counters = [
+    { icon: ThumbsUp, label: 'Pelanggan Puas', to: data?.customers ?? 0 },
+    { icon: Package, label: 'Varian Produk', to: data?.products ?? 0 },
+    { icon: Truck, label: 'Pengiriman', to: data?.deliveries ?? 0 },
+    { icon: Snowflake, label: 'Tahun Pengalaman', to: data?.years ?? 1 },
+  ]
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-royal-700 to-royal-950 py-20">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,209,249,0.15),transparent_60%)]" />

@@ -3,6 +3,7 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard,
   Package,
+  PackageCheck,
   Tags,
   ReceiptText,
   MessageSquareQuote,
@@ -24,6 +25,7 @@ const navItems = [
   { to: '/admin/produk', label: 'Produk', icon: Package },
   { to: '/admin/kategori', label: 'Kategori', icon: Tags },
   { to: '/admin/transaksi', label: 'Transaksi', icon: ReceiptText },
+  { to: '/admin/pesanan-online', label: 'Pesanan Online', icon: PackageCheck },
   { to: '/admin/testimoni', label: 'Testimoni', icon: MessageSquareQuote },
   { to: '/admin/pengguna', label: 'Pengguna', icon: Users },
 ]
@@ -33,6 +35,7 @@ const pageTitles: Record<string, string> = {
   '/admin/produk': 'Produk',
   '/admin/kategori': 'Kategori',
   '/admin/transaksi': 'Transaksi',
+  '/admin/pesanan-online': 'Pesanan Online',
   '/admin/testimoni': 'Testimoni',
   '/admin/pengguna': 'Pengguna',
 }

@@ -1,4 +1,4 @@
-import type { Transaction } from '../types'
+import type { Transaction, WebOrder } from '../types'
 import { getSupabaseClient } from './supabase'
 
 export interface WebStat {
@@ -15,12 +15,12 @@ export interface WebStats {
 }
 
 export interface LiveActivity {
-  type: 'transaction' | 'pageview'
+  type: 'transaction' | 'pageview' | 'weborder'
   id: string
   title: string
   detail: string
   created_at: string
-  payload?: Transaction | WebStat
+  payload?: Transaction | WebStat | WebOrder
 }
 
 async function trackPageView(
@@ -56,6 +56,7 @@ async function getWebStats(): Promise<{
 interface ActivityHandlers {
   onTransaction: (tx: Transaction) => void
   onPageView: (view: WebStat) => void
+  onWebOrder: (order: WebOrder) => void
 }
 
 function subscribeActivity(handlers: ActivityHandlers): () => void {
@@ -74,6 +75,13 @@ function subscribeActivity(handlers: ActivityHandlers): () => void {
       { event: 'INSERT', schema: 'public', table: 'page_views' },
       (payload) => {
         handlers.onPageView(payload.new as WebStat)
+      },
+    )
+    .on(
+      'postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'web_orders' },
+      (payload) => {
+        handlers.onWebOrder(payload.new as WebOrder)
       },
     )
     .subscribe()

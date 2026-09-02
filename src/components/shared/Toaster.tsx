@@ -30,10 +30,8 @@ export function Toaster() {
         const s = styles[t.type]
         const Icon = s.Icon
         return (
-          <button
+          <div
             key={t.id}
-            type="button"
-            onClick={() => removeToast(t.id)}
             className={cn(
               'animate-fade-in-up flex items-start gap-2.5 rounded-xl border px-4 py-3 text-left text-sm font-medium shadow-lg backdrop-blur',
               s.container,
@@ -41,8 +39,27 @@ export function Toaster() {
           >
             <Icon className={cn('mt-0.5 h-5 w-5 shrink-0', s.icon)} />
             <span className="flex-1 leading-snug">{t.message}</span>
-            <X className="h-4 w-4 shrink-0 opacity-50" />
-          </button>
+            {t.action && (
+              <button
+                type="button"
+                onClick={() => {
+                  t.action?.onClick()
+                  removeToast(t.id)
+                }}
+                className="shrink-0 rounded-full bg-white px-3 py-1 text-xs font-bold text-navy-900 shadow-sm transition-transform hover:scale-105"
+              >
+                {t.action.label}
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => removeToast(t.id)}
+              className="shrink-0 opacity-50 transition-opacity hover:opacity-100"
+              aria-label="Tutup notifikasi"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
         )
       })}
     </div>

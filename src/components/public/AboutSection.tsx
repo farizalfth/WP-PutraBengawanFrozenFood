@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, BadgeCheck, Store, Wallet } from 'lucide-react'
+import { ArrowRight, HeartHandshake, Store, Wallet } from 'lucide-react'
 import Reveal from '../shared/Reveal'
 import { DefaultProductImage } from '../ui/ImageWithFallback'
 
 const features = [
   {
-    icon: BadgeCheck,
-    title: 'Produk Berkualitas',
-    text: 'Produk terjamin segar, halal dan higienis untuk keluarga Anda.',
+    icon: HeartHandshake,
+    title: 'Kenyamanan & Kebersihan',
+    text: 'Frozen food praktis, tersimpan higienis di suhu beku optimal.',
   },
   {
     icon: Wallet,
-    title: 'Harga Bersahabat',
-    text: 'Harga terjangkau untuk semua kalangan masyarakat.',
+    title: 'Harga Terjangkau',
+    text: 'Kualitas terbaik dengan harga yang ramah di kantong.',
   },
 ]
 

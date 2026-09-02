@@ -106,6 +106,22 @@ export function AdminDashboardPage() {
           ].slice(0, 14),
         )
       },
+      onWebOrder: (order) => {
+        fetchStats()
+        setFeed((prev) =>
+          [
+            {
+              type: 'weborder',
+              id: order.id,
+              title: order.order_number,
+              detail: `Pesanan online ${formatRupiah(order.total_amount ?? 0)} • ${order.customer_name}`,
+              created_at: order.created_at,
+              payload: order,
+            } satisfies LiveActivity,
+            ...prev,
+          ].slice(0, 14),
+        )
+      },
     })
     return unsubscribe
   }, [])
@@ -342,11 +358,15 @@ export function AdminDashboardPage() {
                               'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
                               item.type === 'transaction'
                                 ? 'bg-emerald-50 text-emerald-600'
-                                : 'bg-sky-50 text-sky-600',
+                                : item.type === 'weborder'
+                                  ? 'bg-amber-50 text-amber-600'
+                                  : 'bg-sky-50 text-sky-600',
                             )}
                           >
                             {item.type === 'transaction' ? (
                               <ReceiptText className="h-4 w-4" />
+                            ) : item.type === 'weborder' ? (
+                              <Package className="h-4 w-4" />
                             ) : (
                               <Eye className="h-4 w-4" />
                             )}

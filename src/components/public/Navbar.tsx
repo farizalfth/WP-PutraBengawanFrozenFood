@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { LogIn, Menu, Phone, X } from 'lucide-react'
+import { LogIn, Menu, Phone, ShoppingCart, X } from 'lucide-react'
 import { SnowflakeIcon } from '../shared/Snowflakes'
 import { waLink, STORE_SETTINGS } from '../../utils/constants'
+import { useCartStore } from '../../stores/cartStore'
 import { cn } from '../../lib/utils'
 
 const links = [
   { to: '/', label: 'Beranda' },
-  { to: '/tentang-kami', label: 'Tentang Kami' },
   { to: '/produk', label: 'Produk' },
   { to: '/cara-order', label: 'Cara Order' },
   { to: '/testimoni', label: 'Testimoni' },
   { to: '/kontak', label: 'Hubungi Kami' },
+  { to: '/tentang-kami', label: 'Tentang Kami' },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const cartCount = useCartStore(
+    (s) => s.items.reduce((sum, i) => sum + i.quantity, 0),
+  )
   const location = useLocation()
 
   useEffect(() => {
@@ -100,6 +104,8 @@ export function Navbar() {
           </a>
         </div>
 
+        <CartButton />
+
         <Link
           to="/admin/login"
           className="inline-flex items-center gap-2 rounded-full bg-royal-600 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-royal-500"
@@ -142,6 +148,13 @@ export function Navbar() {
               </NavLink>
             ))}
             <Link
+              to="/keranjang"
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-royal-600 px-4 py-3 text-sm font-semibold text-white"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              Keranjang ({cartCount})
+            </Link>
+            <Link
               to="/admin/login"
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-royal-600 px-4 py-3 text-sm font-semibold text-white"
             >
@@ -152,6 +165,26 @@ export function Navbar() {
         </div>
       )}
     </header>
+  )
+}
+
+function CartButton() {
+  const count = useCartStore(
+    (s) => s.items.reduce((sum, i) => sum + i.quantity, 0),
+  )
+  return (
+    <Link
+      to="/keranjang"
+      className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-navy-200 bg-white text-navy-700 transition-colors hover:border-royal-500 hover:text-royal-600"
+      aria-label={`Keranjang (${count} item)`}
+    >
+      <ShoppingCart className="h-5 w-5" />
+      {count > 0 && (
+        <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-ice-400 px-1 text-[10px] font-bold text-white shadow">
+          {count}
+        </span>
+      )}
+    </Link>
   )
 }
 

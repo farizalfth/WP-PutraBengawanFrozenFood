@@ -115,6 +115,34 @@ h5 {
   }
 }
 
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+.animate-hero-float {
+  animation: hero-float 6s ease-in-out infinite;
+}
+
+@keyframes hero-float-delayed {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(18px);
+  }
+}
+
+.animate-hero-float-delayed {
+  animation: hero-float-delayed 7s ease-in-out infinite;
+}
+
 .reveal {
   opacity: 0;
 }
@@ -203,4 +231,44 @@ h5 {
   @page {
     margin: 8mm;
   }
+}
+
+/* ---------- Leaflet map location picker ---------- */
+.ff-marker {
+  background: transparent;
+  border: none;
+}
+
+.leaflet-container {
+  font-family: var(--font-sans);
+  z-index: 0;
+}
+
+.leaflet-pane,
+.leaflet-control,
+.leaflet-popup {
+  z-index: 1 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 2 !important;
+}
+
+.ff-map-confirm {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00d1f9, #19409a);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.2s;
+}
+.ff-map-confirm:hover {
+  opacity: 0.9;
 }

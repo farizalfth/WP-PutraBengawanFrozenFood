@@ -1,27 +1,32 @@
-import { HeartHandshake, Package, Snowflake, Truck } from 'lucide-react'
+import {
+  HeartHandshake,
+  Layers,
+  Leaf,
+  Wallet,
+} from 'lucide-react'
 import Reveal from '../shared/Reveal'
 import SectionTitle from './SectionTitle'
 
 const features = [
   {
-    icon: Truck,
-    title: 'Pengiriman Cepat',
-    text: 'Melayani pengiriman ke seluruh Brebes dan sekitarnya.',
-  },
-  {
-    icon: Package,
-    title: 'Produk Berkualitas',
-    text: 'Dibuat dari bahan pilihan dan terjamin kualitasnya.',
-  },
-  {
-    icon: Snowflake,
-    title: 'Simpan Beku',
-    text: 'Kesegaran terjaga dengan penyimpanan beku optimal.',
-  },
-  {
     icon: HeartHandshake,
-    title: 'Layanan Ramah',
-    text: 'Siap membantu Anda setiap saat dengan senang hati.',
+    title: 'Kenyamanan & Kebersihan',
+    text: 'Produk beku disimpan higienis dan praktis untuk keluarga Anda.',
+  },
+  {
+    icon: Wallet,
+    title: 'Harga Terjangkau',
+    text: 'Makanan beku berkualitas dengan harga yang ramah di kantong.',
+  },
+  {
+    icon: Layers,
+    title: 'Keragaman Produk',
+    text: 'Beragam pilihan frozen food nugget, sosis, dan olahan siap masak.',
+  },
+  {
+    icon: Leaf,
+    title: 'Retensi Nutrisi',
+    text: 'Proses beku menjaga gizi dan cita rasa tetap awet alami.',
   },
 ]
 
@@ -31,9 +36,9 @@ export function FeatureSection() {
       <div className="container-site">
         <Reveal>
           <SectionTitle
-            eyebrow="Keunggulan Kami"
-            title="Nama Terpercaya di Industri Frozen Food"
-            description="Kami hadir untuk memenuhi kebutuhan frozen food keluarga Anda dengan kualitas dan layanan terbaik."
+            eyebrow="Keuntungan Kami"
+            title="Toko Makanan Beku Terbaik"
+            description="Putra Bengawan Frozen Food Store hadir untuk memenuhi kebutuhan frozen food keluarga Anda dengan kualitas dan layanan terbaik."
           />
         </Reveal>
 

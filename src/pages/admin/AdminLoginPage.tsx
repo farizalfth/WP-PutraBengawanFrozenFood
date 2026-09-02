@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, LogIn, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, Eye, EyeOff, LogIn, ShieldCheck } from 'lucide-react'
 import Logo from '../../components/shared/Logo'
 import { Snowfall, SnowflakeIcon } from '../../components/shared/Snowflakes'
 import { useAuthStore } from '../../stores/authStore'
@@ -214,12 +214,15 @@ export function AdminLoginPage() {
           </div>
         </div>
 
-        <p className="mt-6 text-center text-sm text-navy-200">
-          Kembali ke{' '}
-          <Link to="/" className="font-semibold text-white underline">
-            halaman utama
+        <div className="mt-7 flex justify-center">
+          <Link
+            to="/"
+            className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-sm font-semibold text-navy-200 backdrop-blur transition-all duration-300 hover:border-ice-300/50 hover:bg-ice-400 hover:text-navy-950 hover:shadow-lg hover:shadow-ice-400/25"
+          >
+            <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
+            Kembali ke Halaman Utama
           </Link>
-        </p>
+        </div>
       </div>
     </div>
   )

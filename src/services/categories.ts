@@ -92,3 +92,37 @@ export async function deleteCategory(id: string): Promise<{
     return { error: (e as Error).message }
   }
 }
+
+export interface SuggestedCategory {
+  name: string
+  description?: string | null
+}
+
+export async function seedCategories(
+  suggestions: SuggestedCategory[],
+): Promise<{ added: number; error: string | null }> {
+  try {
+    const client = getSupabaseClient()
+    const { data: existing, error: listErr } = await client
+      .from('categories')
+      .select('name')
+    if (listErr) return { added: 0, error: listErr.message }
+
+    const existingNames = new Set((existing ?? []).map((c) => c.name))
+    const toInsert = suggestions.filter((s) => !existingNames.has(s.name))
+    if (toInsert.length === 0) return { added: 0, error: null }
+
+    const { error: insertErr } = await client
+      .from('categories')
+      .insert(
+        toInsert.map((s) => ({
+          name: s.name,
+          description: s.description || null,
+        })),
+      )
+    if (insertErr) return { added: 0, error: insertErr.message }
+    return { added: toInsert.length, error: null }
+  } catch (e) {
+    return { added: 0, error: (e as Error).message }
+  }
+}

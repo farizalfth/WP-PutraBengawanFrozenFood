@@ -1,21 +1,42 @@
 import { create, type StateCreator } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { CartItem, Product } from '../types'
+import type { CartItem, DeliveryOption, Product } from '../types'
+
+export interface CartCustomer {
+  name: string
+  phone: string
+  address: string
+  titikLokasi: string
+  notes: string
+  delivery: DeliveryOption
+}
 
 interface CartState {
   items: CartItem[]
+  customer: CartCustomer
   addItem: (product: Product) => { ok: boolean; message: string }
   increment: (productId: string) => void
   decrement: (productId: string) => void
   setQuantity: (productId: string, qty: number) => void
   removeItem: (productId: string) => void
+  setCustomer: (customer: Partial<CartCustomer>) => void
   clear: () => void
   getTotal: () => number
   getItemCount: () => number
 }
 
+const emptyCustomer: CartCustomer = {
+  name: '',
+  phone: '',
+  address: '',
+  titikLokasi: '',
+  notes: '',
+  delivery: 'pickup',
+}
+
 const cartStore: StateCreator<CartState> = (set, get) => ({
   items: [],
+  customer: emptyCustomer,
 
   addItem: (product) => {
     const state = get()
@@ -103,7 +124,11 @@ const cartStore: StateCreator<CartState> = (set, get) => ({
     set({ items: get().items.filter((i) => i.product.id !== productId) })
   },
 
-  clear: () => set({ items: [] }),
+  setCustomer: (customer) => {
+    set({ customer: { ...get().customer, ...customer } })
+  },
+
+  clear: () => set({ items: [], customer: emptyCustomer }),
 
   getTotal: () =>
     get().items.reduce((sum, i) => sum + i.product.price * i.quantity, 0),
@@ -114,6 +139,6 @@ const cartStore: StateCreator<CartState> = (set, get) => ({
 export const useCartStore = create<CartState>()(
   persist(cartStore, {
     name: 'pbf-pos-cart',
-    version: 1,
+    version: 2,
   }),
 )

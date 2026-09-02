@@ -86,7 +86,80 @@ export interface StoreSettings {
   address: string
   phone: string
   whatsapp: string
+  owner_instagram: string
   instagram: string
   open_hours: string
   maps_url: string
+  map_embed: string
+  bank_name?: string
+  bank_account?: string
+  bank_holder?: string
+  qris_image_url?: string | null
+  shopee_url?: string | null
+  gojek_url?: string | null
 }
+
+export interface OrderItem {
+  product_id: string
+  name: string
+  quantity: number
+  price: number
+  subtotal: number
+}
+
+export type DeliveryOption = 'pickup' | 'gojek' | 'shopee' | 'courier'
+export type PaymentMethod = 'qris' | 'transfer' | 'cash'
+
+export interface Order {
+  id: string
+  number: string
+  created_at: string
+  items: OrderItem[]
+  total: number
+  customer_name: string
+  customer_phone: string
+  address: string
+  titik_lokasi?: string
+  notes: string
+  delivery: DeliveryOption
+  payment: PaymentMethod
+  status: 'menunggu' | 'diproses' | 'selesai' | 'batal'
+}
+
+export interface WebOrderItem {
+  product_id: string
+  name: string
+  quantity: number
+  price: number
+  subtotal: number
+}
+
+export interface WebOrder {
+  id: string
+  order_number: string
+  customer_name: string
+  customer_phone: string
+  address: string
+  titik_lokasi: string | null
+  notes: string | null
+  delivery: string
+  payment: string
+  total_amount: number
+  status: 'pending' | 'accepted' | 'done'
+  payment_proof?: string | null
+  payment_confirmed_at?: string | null
+  synced_transaction_id?: string | null
+  created_at: string
+}
+
+export interface WebOrderItemRow {
+  id: string
+  web_order_id: string
+  product_id: string
+  name: string
+  quantity: number
+  price: number
+  subtotal: number
+}
+
+export type WebOrderStatus = WebOrder['status']

@@ -46,7 +46,6 @@ export async function listBestSellers(): Promise<{
       .select(productSelect)
       .eq('is_best_seller', true)
       .order('created_at', { ascending: false })
-      .limit(8)
     if (error) return { data: null, error: error.message }
     return { data: data as unknown as Product[], error: null }
   } catch (e) {

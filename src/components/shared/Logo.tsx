@@ -1,5 +1,6 @@
 import { cn } from '../../lib/utils'
 import { SnowflakeIcon } from './Snowflakes'
+import { STORE_NAME, STORE_TAGLINE } from '../../utils/constants'
 
 export function Logo({
   variant = 'light',
@@ -32,10 +33,10 @@ export function Logo({
       </div>
       <div className="leading-tight">
         <p className={cn('font-display font-extrabold tracking-wide', s.title, textColor)}>
-          PUTRA BENGAWAN
+          {STORE_NAME}
         </p>
         <p className={cn('font-semibold tracking-[0.2em]', s.tagline, subColor)}>
-          FROZEN FOOD STORE
+          {STORE_TAGLINE}
         </p>
       </div>
     </div>

@@ -13,11 +13,11 @@ export function ProductCard({ product }: { product: Product }) {
       to={`/produk/${id}`}
       className="group flex flex-col overflow-hidden rounded-[10px] border border-[#c4d3d3] bg-white transition-shadow duration-300 hover:shadow-[0_0_45px_rgba(0,0,0,0.1)]"
     >
-      <div className="relative aspect-square overflow-hidden bg-navy-50">
+      <div className="relative aspect-[1170/1463] overflow-hidden bg-white">
         <ImageWithFallback
           src={image_url}
           alt={name}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
         />
         {is_best_seller && (
           <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-ice-400 px-2.5 py-1 text-[10px] font-bold text-white shadow-sm">

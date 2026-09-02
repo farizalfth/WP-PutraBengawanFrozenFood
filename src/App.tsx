@@ -14,12 +14,16 @@ import TentangKamiPage from './pages/public/TentangKamiPage'
 import CaraOrderPage from './pages/public/CaraOrderPage'
 import TestimoniPage from './pages/public/TestimoniPage'
 import KontakPage from './pages/public/KontakPage'
+import CartPage from './pages/public/CartPage'
+import CheckoutPage from './pages/public/CheckoutPage'
+import { OrderDetailPage } from './pages/public/OrderDetailPage'
 
 import AdminLoginPage from './pages/admin/AdminLoginPage'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import AdminProductsPage from './pages/admin/AdminProductsPage'
 import AdminCategoriesPage from './pages/admin/AdminCategoriesPage'
 import AdminTransactionsPage from './pages/admin/AdminTransactionsPage'
+import AdminWebOrdersPage from './pages/admin/AdminWebOrdersPage'
 import AdminTestimonialsPage from './pages/admin/AdminTestimonialsPage'
 import AdminUsersPage from './pages/admin/AdminUsersPage'
 
@@ -48,6 +52,9 @@ function App() {
           <Route path="/cara-order" element={<CaraOrderPage />} />
           <Route path="/testimoni" element={<TestimoniPage />} />
           <Route path="/kontak" element={<KontakPage />} />
+          <Route path="/keranjang" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/pesanan/:id" element={<OrderDetailPage />} />
         </Route>
 
         <Route path="/admin/login" element={<AdminLoginPage />} />
@@ -58,6 +65,7 @@ function App() {
             <Route path="produk" element={<AdminProductsPage />} />
             <Route path="kategori" element={<AdminCategoriesPage />} />
             <Route path="transaksi" element={<AdminTransactionsPage />} />
+            <Route path="pesanan-online" element={<AdminWebOrdersPage />} />
             <Route path="testimoni" element={<AdminTestimonialsPage />} />
             <Route path="pengguna" element={<AdminUsersPage />} />
           </Route>

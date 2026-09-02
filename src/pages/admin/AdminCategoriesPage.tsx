@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Pencil, Plus, RefreshCw, Tags, Trash2 } from 'lucide-react'
+import { FolderPlus, Pencil, Plus, RefreshCw, Tags, Trash2 } from 'lucide-react'
 import type { Category } from '../../types'
 import {
   createCategory,
   deleteCategory,
   listCategories,
+  seedCategories,
   updateCategory,
 } from '../../services/categories'
 import { useToast } from '../../stores/toastStore'
@@ -20,6 +21,7 @@ import {
   SearchInput,
 } from '../../components/admin/AdminShared'
 import { Field, Input, Textarea } from '../../components/ui/FormControls'
+import { cn } from '../../lib/utils'
 
 interface FormState {
   id?: string
@@ -29,6 +31,18 @@ interface FormState {
 }
 
 const emptyForm: FormState = { name: '', description: '', image_url: null }
+
+const suggestedCategories = [
+  { name: 'Nugget', description: 'Nugget ayam dan varian nugget siap masak' },
+  { name: 'Sosis', description: 'Sosis sapi dan ayam berbagai rasa' },
+  { name: 'Saus Mayones', description: 'Mayones dan saus pelengkap siap pakai' },
+  { name: 'Bakso & Olahan', description: 'Bakso serta olahan daging siap saji' },
+  { name: 'Dimsum', description: 'Dimsum dan siomay siap kukus' },
+  { name: 'Kebab', description: 'Kebab cepat saji siap panaskan' },
+  { name: 'Kentang', description: 'Kentang goreng dan olahan kentang' },
+  { name: 'Olahan Ayam', description: 'Olahan ayam siap masak' },
+  { name: 'Cemilan & Kue', description: 'Cemilan beku dan kue siap saji' },
+]
 
 export function AdminCategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -42,6 +56,7 @@ export function AdminCategoriesPage() {
 
   const [deleteTarget, setDeleteTarget] = useState<Category | null>(null)
   const [deleting, setDeleting] = useState(false)
+  const [seeding, setSeeding] = useState(false)
 
   const toast = useToast()
 
@@ -125,15 +140,36 @@ export function AdminCategoriesPage() {
     fetchData()
   }
 
+  const handleSeed = async () => {
+    setSeeding(true)
+    const res = await seedCategories(suggestedCategories)
+    setSeeding(false)
+    if (res.error) {
+      toast.error(`Gagal menambahkan kategori default: ${res.error}`)
+      return
+    }
+    toast.success(
+      res.added > 0
+        ? `${res.added} kategori default berhasil ditambahkan.`
+        : 'Semua kategori default sudah ada.',
+    )
+    fetchData()
+  }
+
   return (
     <div>
       <AdminPageHeader
         title="Kategori"
         description="Kelola kategori produk."
         action={
-          <Button onClick={openCreate}>
-            <Plus className="h-4 w-4" /> Tambah Kategori
-          </Button>
+          <div className="flex flex-wrap items-center gap-2">
+            <Button variant="outline" onClick={handleSeed} loading={seeding}>
+              <FolderPlus className="h-4 w-4" /> Pasang Kategori Default
+            </Button>
+            <Button onClick={openCreate}>
+              <Plus className="h-4 w-4" /> Tambah Kategori
+            </Button>
+          </div>
         }
       />
 
@@ -220,6 +256,39 @@ export function AdminCategoriesPage() {
         size="md"
       >
         <div className="space-y-4">
+          {!form.id && (
+            <div>
+              <p className="mb-1.5 text-sm font-semibold text-black">
+                Pilih Cepat
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {suggestedCategories.map((s) => (
+                  <button
+                    key={s.name}
+                    type="button"
+                    onClick={() =>
+                      setForm({
+                        ...form,
+                        name: s.name,
+                        description: s.description,
+                      })
+                    }
+                    className={cn(
+                      'rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors',
+                      form.name === s.name
+                        ? 'border-royal-500 bg-royal-600 text-white'
+                        : 'border-navy-200 bg-white text-navy-700 hover:border-royal-300 hover:bg-royal-50',
+                    )}
+                  >
+                    {s.name}
+                  </button>
+                ))}
+              </div>
+              <p className="mt-1.5 text-[11px] text-neutral-500">
+                Klik salah satu untuk mengisi form kategori secara otomatis.
+              </p>
+            </div>
+          )}
           <Field label="Nama Kategori" required>
             <Input
               value={form.name}

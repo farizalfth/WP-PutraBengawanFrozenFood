@@ -7,7 +7,14 @@ insert into public.categories (name, description)
 values
   ('Nugget', 'Nugget ayam dan varian nugget siap masak'),
   ('Sosis', 'Sosis sapi dan ayam berbagai rasa'),
+  ('Saus Mayones', 'Mayones dan saus pelengkap siap pakai'),
   ('Bakso & Olahan', 'Bakso serta olahan daging siap saji'),
+  ('Dimsum', 'Dimsum dan siomay siap kukus'),
+  ('Kebab', 'Kebab cepat saji siap panaskan'),
+  ('Kentang', 'Kentang goreng dan olahan kentang'),
+  ('Olahan Ayam', 'Olahan ayam siap masak'),
+  ('Olahan Ikan & Seafood', 'Olahan ikan, udang, dan seafood'),
+  ('Cemilan & Kue', 'Cemilan beku dan kue siap saji'),
   ('Siap Masak', 'Produk frozen food siap olah'),
   ('Lainnya', 'Produk frozen food lainnya')
 on conflict do nothing;
