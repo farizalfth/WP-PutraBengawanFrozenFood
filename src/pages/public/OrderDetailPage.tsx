@@ -240,7 +240,7 @@ export function OrderDetailPage() {
                         </dt>
                         <dd className="flex items-start gap-1.5 text-navy-600">
                           <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-ice-500" />
-                          {order.address}
+                          <span className="break-words">{order.address}</span>
                         </dd>
                       </div>
                     )}
@@ -255,7 +255,7 @@ export function OrderDetailPage() {
                             href={order.titik_lokasi}
                             target="_blank"
                             rel="noreferrer"
-                            className="underline text-royal-600 hover:text-royal-800"
+                            className="break-all underline text-royal-600 hover:text-royal-800"
                           >
                             {order.titik_lokasi}
                           </a>
@@ -267,7 +267,9 @@ export function OrderDetailPage() {
                         <dt className="text-xs font-semibold uppercase tracking-wider text-navy-400">
                           Catatan
                         </dt>
-                        <dd className="text-navy-600">{order.notes}</dd>
+                        <dd className="break-words whitespace-pre-line text-navy-600">
+                          {order.notes}
+                        </dd>
                       </div>
                     )}
                   </dl>

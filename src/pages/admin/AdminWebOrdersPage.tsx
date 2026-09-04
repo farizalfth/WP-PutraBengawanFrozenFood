@@ -334,7 +334,7 @@ export function AdminWebOrdersPage() {
               {detailOrder.address && (
                 <div className="flex items-start gap-1.5 text-navy-600">
                   <UserRound className="mt-0.5 h-4 w-4 shrink-0 text-neutral-500" />
-                  <span>
+                  <span className="break-words">
                     <span className="font-semibold text-black">Alamat: </span>
                     {detailOrder.address}
                   </span>
@@ -343,7 +343,7 @@ export function AdminWebOrdersPage() {
               {detailOrder.titik_lokasi && (
                 <div className="flex items-start gap-1.5 text-navy-600">
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-neutral-500" />
-                  <span>
+                  <span className="break-all">
                     <span className="font-semibold text-black">Titik Lokasi: </span>
                     <a
                       href={detailOrder.titik_lokasi}
@@ -359,7 +359,7 @@ export function AdminWebOrdersPage() {
               {detailOrder.notes && (
                 <div className="flex items-start gap-1.5 text-navy-600">
                   <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-neutral-500" />
-                  <span>
+                  <span className="break-words whitespace-pre-line">
                     <span className="font-semibold text-black">Catatan: </span>
                     {detailOrder.notes}
                   </span>
