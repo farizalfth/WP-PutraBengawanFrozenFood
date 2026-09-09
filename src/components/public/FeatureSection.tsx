@@ -55,9 +55,6 @@ export function FeatureSection() {
                 <p className="mt-3 text-sm leading-relaxed text-navy-500">
                   {f.text}
                 </p>
-                <span className="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wide text-navy-400 transition-colors duration-500 group-hover:text-ice-400">
-                  Selengkapnya
-                </span>
               </div>
             </Reveal>
           ))}
