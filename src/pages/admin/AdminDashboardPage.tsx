@@ -179,7 +179,7 @@ export function AdminDashboardPage() {
       {!loading && !error && stats && (
         <>
           {/* Branded banner */}
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-royal-900 via-royal-700 to-royal-600 p-6 text-white shadow-lg sm:p-8">
+          <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-royal-900 via-royal-700 to-royal-600 p-6 text-white shadow-lg sm:p-8">
             <div
               className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-ice-400/20 blur-3xl"
               aria-hidden="true"
@@ -201,15 +201,15 @@ export function AdminDashboardPage() {
                   {formatDate(new Date())}
                 </p>
               </div>
-              <div className="flex items-center gap-4 rounded-2xl bg-white/10 px-5 py-4 backdrop-blur-sm">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/15">
+              <div className="flex min-w-0 items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-sm sm:gap-4 sm:px-5 sm:py-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/15">
                   <TrendingUp className="h-6 w-6 text-ice-200" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="text-[11px] font-semibold uppercase tracking-wider text-navy-100">
                     Pendapatan Hari Ini
                   </p>
-                  <p className="font-display text-2xl font-extrabold">
+                  <p className="truncate font-display text-xl font-extrabold sm:text-2xl">
                     {formatRupiah(stats.todayRevenue)}
                   </p>
                 </div>
@@ -218,15 +218,15 @@ export function AdminDashboardPage() {
           </div>
 
           {/* Stat cards */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-5">
             {statCards.map((c) => (
               <div
                 key={c.label}
-                className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-navy-100 bg-white p-5 text-center shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-navy-100 bg-white px-3 py-4 text-center shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md sm:p-5"
               >
                 <span
                   className={cn(
-                    'pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r',
+                    'pointer-events-none absolute inset-x-0 top-0 h-1 bg-linear-to-r',
                     c.ring,
                     'to-transparent',
                   )}
@@ -236,7 +236,7 @@ export function AdminDashboardPage() {
                   <c.icon className="h-5 w-5" />
                 </div>
                 <p className="mt-3 text-xs font-medium text-neutral-500">{c.label}</p>
-                <p className="mt-1 font-display text-2xl font-extrabold leading-tight text-black">
+                <p className="mt-1 w-full max-w-full wrap-break-word font-display text-lg font-extrabold leading-tight text-black sm:text-2xl">
                   {(c as { money?: number }).money !== undefined
                     ? formatRupiah((c as { money: number }).money)
                     : (c.value as number).toLocaleString('id-ID')}
@@ -273,7 +273,7 @@ export function AdminDashboardPage() {
                   </p>
                 </div>
               ) : (
-                <div className="max-h-[320px] space-y-2 overflow-y-auto p-5">
+                <div className="max-h-80 space-y-2 overflow-y-auto p-5">
                   {stats.lowStockProducts.map((p) => (
                     <div
                       key={p.id}
@@ -347,7 +347,7 @@ export function AdminDashboardPage() {
                   </p>
                 ) : (
                   <>
-                    <div className="max-h-[300px] space-y-2 overflow-y-auto pr-1">
+                    <div className="max-h-75 space-y-2 overflow-y-auto pr-1">
                       {mergedFeed.map((item) => (
                         <div
                           key={`${item.type}-${item.id}`}
