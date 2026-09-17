@@ -19,6 +19,7 @@ import CheckoutPage from './pages/public/CheckoutPage'
 import { OrderDetailPage } from './pages/public/OrderDetailPage'
 
 import AdminLoginPage from './pages/admin/AdminLoginPage'
+import ResetPasswordPage from './pages/admin/ResetPasswordPage'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import AdminProductsPage from './pages/admin/AdminProductsPage'
 import AdminCategoriesPage from './pages/admin/AdminCategoriesPage'
@@ -26,6 +27,7 @@ import AdminTransactionsPage from './pages/admin/AdminTransactionsPage'
 import AdminWebOrdersPage from './pages/admin/AdminWebOrdersPage'
 import AdminTestimonialsPage from './pages/admin/AdminTestimonialsPage'
 import AdminUsersPage from './pages/admin/AdminUsersPage'
+import AdminAccountPage from './pages/admin/AdminAccountPage'
 
 import CashierPage from './pages/cashier/CashierPage'
 import NotFoundPage from './pages/public/NotFoundPage'
@@ -58,6 +60,7 @@ function App() {
         </Route>
 
         <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin/reset-password" element={<ResetPasswordPage />} />
 
         <Route element={<AdminRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
@@ -68,6 +71,7 @@ function App() {
             <Route path="pesanan-online" element={<AdminWebOrdersPage />} />
             <Route path="testimoni" element={<AdminTestimonialsPage />} />
             <Route path="pengguna" element={<AdminUsersPage />} />
+            <Route path="akun" element={<AdminAccountPage />} />
           </Route>
         </Route>
 

@@ -8,6 +8,7 @@ import {
   ReceiptText,
   MessageSquareQuote,
   Users,
+  UserCog,
   LogOut,
   Menu,
   X,
@@ -28,6 +29,7 @@ const navItems = [
   { to: '/admin/pesanan-online', label: 'Pesanan Online', icon: PackageCheck },
   { to: '/admin/testimoni', label: 'Testimoni', icon: MessageSquareQuote },
   { to: '/admin/pengguna', label: 'Pengguna', icon: Users },
+  { to: '/admin/akun', label: 'Akun Saya', icon: UserCog },
 ]
 
 const pageTitles: Record<string, string> = {
@@ -38,6 +40,7 @@ const pageTitles: Record<string, string> = {
   '/admin/pesanan-online': 'Pesanan Online',
   '/admin/testimoni': 'Testimoni',
   '/admin/pengguna': 'Pengguna',
+  '/admin/akun': 'Akun Saya',
 }
 
 function SidebarContent({

@@ -1,12 +1,22 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Eye, EyeOff, LogIn, ShieldCheck } from 'lucide-react'
+import {
+  ArrowLeft,
+  ArrowRight,
+  Eye,
+  EyeOff,
+  KeyRound,
+  LogIn,
+  Mail,
+  ShieldCheck,
+} from 'lucide-react'
 import Logo from '../../components/shared/Logo'
 import { Snowfall, SnowflakeIcon } from '../../components/shared/Snowflakes'
 import { useAuthStore } from '../../stores/authStore'
 import { Input } from '../../components/ui/FormControls'
 import { Button } from '../../components/ui/Button'
 import { isSupabaseConfigured } from '../../services/supabase'
+import { resetPassword } from '../../services/auth'
 import { SetupWarning } from '../../components/shared/SetupWarning'
 
 export function AdminLoginPage() {
@@ -21,6 +31,11 @@ export function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+
+  const [mode, setMode] = useState<'login' | 'forgot'>('login')
+  const [forgotEmail, setForgotEmail] = useState('')
+  const [forgotSent, setForgotSent] = useState(false)
+  const [forgotLoading, setForgotLoading] = useState(false)
 
   const from = (location.state as { from?: string } | null)?.from
 
@@ -49,6 +64,30 @@ export function AdminLoginPage() {
     if (result.error) {
       setError(result.error)
     }
+  }
+
+  const handleForgotSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    if (!forgotEmail.trim()) {
+      setError('Email wajib diisi.')
+      return
+    }
+    setForgotLoading(true)
+    setError(null)
+    setForgotSent(false)
+    const res = await resetPassword(forgotEmail.trim())
+    setForgotLoading(false)
+    if (res.error) {
+      setError(res.error)
+      return
+    }
+    setForgotSent(true)
+  }
+
+  const switchMode = (next: 'login' | 'forgot') => {
+    setMode(next)
+    setError(null)
+    setForgotSent(false)
   }
 
   if (!isSupabaseConfigured) {
@@ -143,20 +182,27 @@ export function AdminLoginPage() {
                   style={{ animation: 'float-slow 3s ease-in-out infinite' }}
                 />
                 <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-ice-400 text-navy-950">
-                  <ShieldCheck className="h-6 w-6" />
+                  {mode === 'forgot' ? (
+                    <KeyRound className="h-6 w-6" />
+                  ) : (
+                    <ShieldCheck className="h-6 w-6" />
+                  )}
                 </div>
               </div>
               <div>
                 <h1 className="font-display text-xl font-extrabold text-black">
-                  Masuk Dashboard
+                  {mode === 'forgot' ? 'Lupa Kata Sandi' : 'Masuk Dashboard'}
                 </h1>
                 <p className="text-xs text-neutral-600">
-                  Khusus admin &amp; kasir
+                  {mode === 'forgot'
+                    ? 'Kami kirimkan link reset ke email Anda'
+                    : 'Khusus admin &amp; kasir'}
                 </p>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+            {mode === 'login' && (
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
               <div className="space-y-1.5">
                 <label className="block text-sm font-semibold text-black">
                   Email
@@ -206,11 +252,78 @@ export function AdminLoginPage() {
                 </p>
               )}
 
+              <div className="flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => switchMode('forgot')}
+                  className="text-xs font-semibold text-royal-600 hover:text-royal-700 hover:underline"
+                >
+                  Lupa kata sandi?
+                </button>
+              </div>
+
               <Button type="submit" size="lg" className="w-full" loading={submitting}>
                 {!submitting && <LogIn className="h-4 w-4" />}
                 Masuk
               </Button>
             </form>
+            )}
+
+            {mode === 'forgot' && (
+              <form onSubmit={handleForgotSubmit} className="mt-6 space-y-4">
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-semibold text-black">
+                    Email
+                  </label>
+                  <div className="relative">
+                    <Input
+                      type="email"
+                      value={forgotEmail}
+                      onChange={(e) => setForgotEmail(e.target.value)}
+                      placeholder="nama@perusahaan.com"
+                      autoComplete="email"
+                      required
+                      className="pr-11"
+                    />
+                    <Mail className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+                  </div>
+                  <p className="text-xs text-neutral-500">
+                    Link reset akan dikirim ke email Gmail akun Anda.
+                  </p>
+                </div>
+
+                {error && (
+                  <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm font-medium text-red-700">
+                    {error}
+                  </p>
+                )}
+
+                {forgotSent && (
+                  <p className="rounded-xl bg-emerald-50 px-3.5 py-2.5 text-sm font-medium text-emerald-700">
+                    Link reset terkirim. Periksa inbox / spam email Anda lalu klik
+                    link tersebut untuk membuat kata sandi baru.
+                  </p>
+                )}
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full"
+                  loading={forgotLoading}
+                >
+                  {!forgotLoading && <ArrowRight className="h-4 w-4" />}
+                  Kirim Link Reset
+                </Button>
+
+                <button
+                  type="button"
+                  onClick={() => switchMode('login')}
+                  className="w-full text-center text-xs font-semibold text-neutral-600 hover:text-black hover:underline"
+                >
+                  Kembali ke login
+                </button>
+              </form>
+            )}
           </div>
         </div>
 
